@@ -1,0 +1,3 @@
+source :rubygems
+
+gem 'freerange-puppet', :path => "../../../freerange-puppet", :require => false
