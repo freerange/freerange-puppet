@@ -15,4 +15,15 @@ class passenger {
         subscribe => Package["passenger"],
         refreshonly => true
     }
+    
+  define host($host) {
+    file { "$host":
+      path => "/etc/apache2/sites-available/$name.conf",
+      owner => root,
+      group => root,
+      mode => 644,
+      content => template("/etc/puppet/modules/passenger/templates/rack_host.erb"),
+      notify => Service[apache2]
+    }  
+  }
 }

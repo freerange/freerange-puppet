@@ -1,0 +1,8 @@
+<VirtualHost *:80>
+  DocumentRoot /var/www/<%= host %>/public
+  ServerName <%= host %>
+  <Directory "/var/www/<%= host %>/public">
+    allow from all
+    Options +Indexes
+  </Directory>
+</VirtualHost>
