@@ -15,7 +15,7 @@ class passenger {
   # compiles the apache module and outputs how to integrate it.  This is piped into a sed command to remove
   # all whitespace, and then the three apache directives are extracted with grep
     
-  exec { "/usr/local/bin/passenger-install-apache2-module --auto | sed -e 's/[[:cntrl:]]\[[[:digit:]]m//' | grep -e 'LoadModule' -e 'PassengerRoot' -e 'PassengerRuby' > /etc/apache2/mods-available/passenger.load":
+  exec { "/usr/local/bin/passenger-install-apache2-module --auto | sed -e 's/[[:cntrl:]]\\[[[:digit:]]m//' | grep -e 'LoadModule' -e 'PassengerRoot' -e 'PassengerRuby' > /etc/apache2/mods-available/passenger.load":
     subscribe => Package["passenger"],
     refreshonly => true
   }
