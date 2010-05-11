@@ -11,7 +11,7 @@ class freerange {
 
     replace {"set_${name}_password":
       file => "/etc/shadow",
-      pattern => "$name\\:\\*",
+      pattern => "$name\\:[\\!\\*]",
       replacement => "$name:$password",
       require => User["$name"]
     }
