@@ -14,7 +14,6 @@ Capistrano::Configuration.instance(:must_exist).load do
     
     desc 'Update puppet configuration from repository'
     task :update do
-      p roles
       #run "cd /etc/puppet; #{sudo} git pull"
     end
     
@@ -31,7 +30,7 @@ Capistrano::Configuration.instance(:must_exist).load do
       puppet.apply
     end
   end
-  
+
   def apply_manifest(manifest, options = {})
     dryrun_option = fetch('puppet_dryrun') ? "--noop " : ""
     run "#{sudo} puppet #{dryrun_option}-v #{manifest}", options
@@ -46,8 +45,6 @@ Capistrano::Configuration.instance(:must_exist).load do
         sudo "mkdir -p /etc/puppet/manifests/apps"
         put ERB.new(manifest).result(binding), "/tmp/#{application}.#{role}.pp", :roles => [role.to_sym]
         sudo "mv /tmp/#{application}.#{role}.pp /etc/puppet/manifests/apps/#{application}.#{role}.pp", :roles => [role.to_sym]
-        #import = "import '#{application}.#{role}.pp'"
-        #sudo "grep #{import} /etc/puppet/manifests/apps.pp; if [ \"$?\" -ne \"0\" ]; then echo #{import} >> /etc/puppet/manifests/apps.pp; fi", :roles => [role.to_sym]
       end
       
       before "puppet:apply" do

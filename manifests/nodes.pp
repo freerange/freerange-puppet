@@ -7,7 +7,13 @@ node default {
   include ssh::server
   include ssh::client 
   
-  freerange::user {"freerange":}
+  freerange::user {"freerange":
+    password => "\\\$6\\\$OzfJiUna\\\$RsaOsmqSWzq/sqMTL8Epy1nojIFYf1Rb178dx/QSo54cD2RmVcN7BmBx5d9WnFyb0hocKOjA1NIaUl0Xo08QX0"
+  }
+
+  freerange::user {"tomw":
+     password => "\\\$6\\\$OzfJiUna\\\$RsaOsmqSWzq/sqMTL8Epy1nojIFYf1Rb178dx/QSo54cD2RmVcN7BmBx5d9WnFyb0hocKOjA1NIaUl0Xo08QX0"
+   }
   
   package { "bundler":
     ensure => "0.9.25",
