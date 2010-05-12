@@ -13,8 +13,7 @@ class passenger {
     
   exec { "passenger-install-apache2-module":
     command => "/usr/local/bin/passenger-install-apache2-module --auto | sed -e 's/[[:cntrl:]]\\[[[:digit:]]m//' | grep -e 'LoadModule' -e 'PassengerRoot' -e 'PassengerRuby' > /etc/apache2/mods-available/passenger.load",
-    require => Package["passenger"],
-    refreshonly => true
+    require => Package["passenger"]
   }
 
   exec { "/usr/sbin/a2enmod passenger":
