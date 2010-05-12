@@ -24,4 +24,13 @@ node default {
     type => rsa,
     require => File["/home/freerange"],
   }
+
+  ssh_authorized_key {"deploy@gofreerange.com":
+    ensure => present,
+    key => "AAAAB3NzaC1yc2EAAAABIwAAAQEAuTgZ+wS8YJUmB6c+F8QimQh/xZuWPYa3fXmLDw2kp8S2cAf6XqU5Fuod/wrhlBdzGTjJdRm3CMWdCUDrh/D68Op8uaIqf/h78eLcVkC7DL3SfFqFxZ/IpQsUXEiFII5rjz2y3orLvUABuIJkuY72DoWhcn6Y0j8uy/wg94QXWKfLdPZTE4kBokO2QmLB+WYsoPAWdaUpswplfidhN1WwQWVHSV7Nfh2Tnym4rMXG61O7mYrFTRKEx5o3eSb9USBj2bEGVo+Nj8YWgNQK4+jxvmQ27kuMhF2C/4rQEXNqcPJnQa9gDpEQttfP8ZW0LNemvfNM/J6Mw05fcPvF5iAigw==",
+    name => "deploy@gofreerange.com",
+    target => "/home/freerange/.ssh/authorized_keys",
+    type => rsa,
+    require => File["/home/freerange"],
+  }
 }
