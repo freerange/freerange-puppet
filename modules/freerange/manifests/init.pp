@@ -23,11 +23,33 @@ class freerange {
       require => User["$name"]
     }
 
+    file {"/home/$name/.zsh":
+      ensure => directory,
+      owner => $name,
+      group => $name,
+      recurse => true,
+      source => "/etc/puppet/modules/freerange/files/zsh",
+      require => File["/home/$name"]
+    }
+
+    file {"/home/$name/.zshrc":
+      owner => $name,
+      group => $name,
+      content => "source ~/.zsh/base.zsh"
+    }
+
     file {"/home/$name/.ssh":
       ensure => directory,
       owner => $name,
       group => $name,
       require => User["$name"]
+    }
+
+    file {"/home/$name/.ssh/known_hosts":
+      ensure => present,
+      owner => $name,
+      group => $name,
+      require => File["/home/$name/.ssh"]
     }
   }
 }
