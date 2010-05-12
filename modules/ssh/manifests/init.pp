@@ -43,11 +43,18 @@ class ssh::server inherits ssh::common {
             allowdupe => false,
     }
 
+    file { "sshd_config":
+      path => "/etc/ssh/sshd_config",
+      owner => root,
+      group => root,
+      source => "/etc/puppet/modules/ssh/files/sshd_config"
+    }
+
     service {
     	ssh:
     	    ensure => running,
     	    pattern => "sshd",
     	    require => Package["openssh-server"],
-    	    subscribe => [ User[sshd], Group["ssh"] ]
+	    subscribe => [ User[sshd], Group["ssh"], File["sshd_config"] ]
     }
 }
