@@ -2,7 +2,7 @@ class passenger {
   include apache
 
   package { "passenger":
-    ensure => latest,
+    ensure => "2.2.11",
     provider => "gem",
     require => Package["libaprutil1-dev", "libapr1-dev", "apache2-mpm-prefork", "libapr1-dev"]
   }
@@ -12,12 +12,17 @@ class passenger {
   # all whitespace, and then the three apache directives are extracted with grep
     
   exec { "passenger-install-apache2-module":
-    command => "/usr/local/bin/passenger-install-apache2-module --auto | sed -e 's/[[:cntrl:]]\\[[[:digit:]]m//' | grep -e 'LoadModule' -e 'PassengerRoot' -e 'PassengerRuby' > /etc/apache2/mods-available/passenger.load",
+    command => "/usr/local/bin/passenger-install-apache2-module --auto",
     require => Package["passenger"]
   }
 
-  exec { "/usr/sbin/a2enmod passenger":
+  file { "/etc/apache2/mods-available/passenger.load":
     require => Exec["passenger-install-apache2-module"],
+    source => "/etc/puppet/modules/passenger/files/passenger.load"
+  }
+
+  exec { "/usr/sbin/a2enmod passenger":
+    require => File["/etc/apache2/mods-available/passenger.load"],
     notify => Service[apache2]
   }
     
