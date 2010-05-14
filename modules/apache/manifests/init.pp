@@ -22,5 +22,22 @@ class apache {
     group => admin
   }
     
-  service { "apache2": require => Package["libaprutil1-dev", "libapr1-dev", "apache2-mpm-prefork", "libapr1-dev"] }
+  service { "apache2": 
+    require => Package["libaprutil1-dev", "libapr1-dev", "apache2-mpm-prefork", "libapr1-dev"] 
+  }
+  
+  file {"/etc/apache2/sites-available/default":
+    ensure => absent,
+    notify => Service[apache2]
+  }
+  
+  file {"/etc/apache2/sites-available/default-ssl":
+    ensure => absent,
+    notify => Service[apache2]
+  }
+  
+  file {"/etc/apache2/sites-enabled/000-default":
+    ensure => absent,
+    notify => Service[apache2]
+  }
 }
