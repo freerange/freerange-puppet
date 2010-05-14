@@ -5,7 +5,7 @@ class freerange {
     user {$name:
       ensure => present,
       home => "/home/$name",
-      groups => admin,
+      groups => [admin, adm],
       password => $password
     }
 

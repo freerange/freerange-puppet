@@ -1,8 +1,14 @@
 <VirtualHost *:80>
-  DocumentRoot /var/www/<%= host %>/current/public
   ServerName <%= host %>
+  DocumentRoot /var/www/<%= host %>/current/public
+
   <Directory "/var/www/<%= host %>/current/public">
     allow from all
     Options +Indexes
   </Directory>
+
+  ErrorLog /var/log/apache2/<%= host %>.error.log
+  LogLevel warn
+	CustomLog /var/log/apache2/<%= host %>.access.log combined
+
 </VirtualHost>
