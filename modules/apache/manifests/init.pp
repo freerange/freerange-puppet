@@ -15,6 +15,12 @@ class apache {
     owner => freerange,
     group => freerange
   }
+
+  file {"/var/log/apache2":
+    ensure => directory,
+    owner => root,
+    group => admin
+  }
     
   service { "apache2": require => Package["libaprutil1-dev", "libapr1-dev", "apache2-mpm-prefork", "libapr1-dev"] }
 }

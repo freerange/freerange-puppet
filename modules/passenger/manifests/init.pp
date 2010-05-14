@@ -13,6 +13,7 @@ class passenger {
     
   exec { "passenger-install-apache2-module":
     command => "/usr/local/bin/passenger-install-apache2-module --auto",
+    creates => "/usr/local/lib/ruby/gems/1.8/gems/passenger-2.2.11/ext/apache2/mod_passenger.so",
     require => Package["passenger"]
   }
 
@@ -23,6 +24,7 @@ class passenger {
 
   exec { "/usr/sbin/a2enmod passenger":
     require => File["/etc/apache2/mods-available/passenger.load"],
+    creates => "/etc/apache2/mods-enabled/passenger.load",
     notify => Service[apache2]
   }
     
@@ -40,7 +42,8 @@ class passenger {
 		default : { err ( "unknown ensure value '${ensure}', should be either enabled or disabled" ) }
 		enabled: {
 			exec { "/usr/sbin/a2ensite $name":
-			  notify => Service[apache2]
+			  notify => Service[apache2],
+			  creates => "/etc/apache2/sites-enabled/$name"
 			}
 		}
 
