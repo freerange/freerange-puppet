@@ -40,6 +40,7 @@ class passenger {
 
     case $ensure {
 		  default : { err ( "unknown ensure value '${ensure}', should be either enabled or disabled" ) }
+
 		  enabled: {
 			  exec { "/usr/sbin/a2ensite $name":
 			    notify => Service[apache2],
