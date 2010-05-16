@@ -29,32 +29,36 @@ class ssh::client inherits ssh::common {
 }
 
 class ssh::server inherits ssh::common {
-    package {
-    	"openssh-server":
-    	    ensure => installed,
-            require => [ File["/etc/ssh"], User[sshd] ],
-    }
-    
-    user {
-    	sshd:
-    		uid => 204, gid => 65534,
-    		home => "/var/run/sshd",
-    		shell => "/usr/sbin/nologin",
-            allowdupe => false,
-    }
+  include ufw
 
-    file { "sshd_config":
-      path => "/etc/ssh/sshd_config",
-      owner => root,
-      group => root,
-      source => "/etc/puppet/modules/ssh/files/sshd_config"
-    }
+  package {
+  	"openssh-server":
+  	    ensure => installed,
+          require => [ File["/etc/ssh"], User[sshd] ],
+  }
+  
+  user {
+  	sshd:
+  		uid => 204, gid => 65534,
+  		home => "/var/run/sshd",
+  		shell => "/usr/sbin/nologin",
+          allowdupe => false,
+  }
 
-    service {
-    	ssh:
-    	    ensure => running,
-    	    pattern => "sshd",
-    	    require => Package["openssh-server"],
-	    subscribe => [ User[sshd], Group["ssh"], File["sshd_config"] ]
-    }
+  file { "sshd_config":
+    path => "/etc/ssh/sshd_config",
+    owner => root,
+    group => root,
+    source => "/etc/puppet/modules/ssh/files/sshd_config"
+  }
+
+  service {
+  	ssh:
+  	    ensure => running,
+  	    pattern => "sshd",
+  	    require => Package["openssh-server"],
+    subscribe => [ User[sshd], Group["ssh"], File["sshd_config"] ]
+  }
+  
+  ufw::allow {"OpenSSH":}
 }

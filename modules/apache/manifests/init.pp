@@ -1,4 +1,6 @@
 class apache {
+  include ufw
+
   package {
     "apache2-mpm-prefork":
       ensure => installed;
@@ -40,4 +42,6 @@ class apache {
     ensure => absent,
     notify => Service[apache2]
   }
+  
+  ufw::allow {"Apache Full":}
 }
