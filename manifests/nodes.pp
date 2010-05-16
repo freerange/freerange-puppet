@@ -5,7 +5,8 @@ node default {
 
   include zsh
   include ssh::server
-  include ssh::client 
+  include ssh::client
+  include monit 
   
   freerange::user {"freerange":
     password => "\\\$6\\\$OzfJiUna\\\$RsaOsmqSWzq/sqMTL8Epy1nojIFYf1Rb178dx/QSo54cD2RmVcN7BmBx5d9WnFyb0hocKOjA1NIaUl0Xo08QX0"

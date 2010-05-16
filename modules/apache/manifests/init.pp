@@ -1,5 +1,5 @@
 class apache {
-  include ufw
+  include ufw, monit
 
   package {
     "apache2-mpm-prefork":
@@ -41,6 +41,14 @@ class apache {
   file {"/etc/apache2/sites-enabled/000-default":
     ensure => absent,
     notify => Service[apache2]
+  }
+  
+  file { "/etc/monit.d/apache.monit": 
+    ensure => present,
+    source => "/etc/puppet/modules/apache/files/apache.monit",
+    owner => root,
+    group => root,
+    notify => Service["monit"]
   }
   
   ufw::allow {"Apache Full":}

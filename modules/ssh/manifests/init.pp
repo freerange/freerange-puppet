@@ -29,6 +29,7 @@ class ssh::client inherits ssh::common {
 
 class ssh::server inherits ssh::common {
   include ufw
+  include monit
 
   package { "openssh-server":
   	ensure => installed,
@@ -57,4 +58,12 @@ class ssh::server inherits ssh::common {
   }
   
   ufw::allow {"OpenSSH":}
+  
+  file { "/etc/monit.d/sshd.monit": 
+    ensure => present,
+    source => "/etc/puppet/modules/ssh/files/sshd.monit",
+    owner => root,
+    group => root,
+    notify => Service["monit"]
+  }
 }
