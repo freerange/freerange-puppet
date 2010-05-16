@@ -1,13 +1,12 @@
 class ssh::common {
-	file {
-		"/etc/ssh":
-			ensure => directory,
-			mode => 0755, owner => root, group => root,
+	file { "/etc/ssh":
+		ensure => directory,
+		mode => 0755, owner => root, group => root,
 	}
-	group {
-		ssh:
-			gid => 204,
-			allowdupe => false,
+	
+	group { "ssh":
+		gid => 204,
+		allowdupe => false,
 	}
 }
 
@@ -19,8 +18,8 @@ class ssh::client inherits ssh::common {
 	}
 
 	# this is needed because the gid might have changed
-	file {
-		"/usr/bin/ssh-agent":
+	file { 
+	  "/usr/bin/ssh-agent":
 			group => ssh,
 			require => Package[openssh-client];
 		"/etc/ssh/ssh_known_hosts":
@@ -31,18 +30,16 @@ class ssh::client inherits ssh::common {
 class ssh::server inherits ssh::common {
   include ufw
 
-  package {
-  	"openssh-server":
-  	    ensure => installed,
-          require => [ File["/etc/ssh"], User[sshd] ],
+  package { "openssh-server":
+  	ensure => installed,
+    require => [ File["/etc/ssh"], User[sshd] ],
   }
   
-  user {
-  	sshd:
-  		uid => 204, gid => 65534,
-  		home => "/var/run/sshd",
-  		shell => "/usr/sbin/nologin",
-          allowdupe => false,
+  user { "sshd":
+  	uid => 204, gid => 65534,
+  	home => "/var/run/sshd",
+  	shell => "/usr/sbin/nologin",
+    allowdupe => false,
   }
 
   file { "sshd_config":
@@ -52,11 +49,10 @@ class ssh::server inherits ssh::common {
     source => "/etc/puppet/modules/ssh/files/sshd_config"
   }
 
-  service {
-  	ssh:
-  	    ensure => running,
-  	    pattern => "sshd",
-  	    require => Package["openssh-server"],
+  service { "ssh":
+  	ensure => running,
+  	pattern => "sshd",
+  	require => Package["openssh-server"],
     subscribe => [ User[sshd], Group["ssh"], File["sshd_config"] ]
   }
   
