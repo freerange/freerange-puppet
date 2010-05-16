@@ -4,6 +4,7 @@ Capistrano::Configuration.instance(:must_exist).load do
 
   set :user, "freerange"
   set :puppet_dryrun, false
+  set :puppet_debug, false
   
   namespace :puppet do
     desc 'Bootstrap server, installing puppet and git'
@@ -25,15 +26,19 @@ Capistrano::Configuration.instance(:must_exist).load do
     
     desc 'Dryrun puppet configuration'
     task :dryrun do
-      puppet.update
       set :puppet_dryrun, true
-      puppet.apply
+    end
+    
+    desc 'Debug puppet configuration'
+    task :debug do
+      set :puppet_debug, true
     end
   end
 
   def apply_manifest(manifest, options = {})
     dryrun_option = fetch('puppet_dryrun') ? "--noop " : ""
-    run "#{sudo} puppet #{dryrun_option}-v #{manifest}", options
+    debug_option = fetch('puppet_debug') ? "-d " : ""
+    run "#{sudo} puppet #{dryrun_option}-v #{debug_option}#{manifest}", options
   end
   
   def manifest(role, manifest)
