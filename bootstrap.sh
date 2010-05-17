@@ -18,4 +18,4 @@ apt-get install -y git-core
 git clone http://github.com/freerange/freerange-puppet.git /etc/puppet
  
 # Apply basic configuration
-puppet /etc/puppet/manifests/site.pp
+puppet -v -d /etc/puppet/manifests/site.pp
