@@ -17,8 +17,8 @@ spec = Gem::Specification.new do |s|
 
   # Change these as appropriate
   s.name               = "freerange-puppet"
-  s.version            = "0.0.1"
-  s.summary            = "Enables simple git-based deployments to freerange-compatible hosts"
+  s.version            = "0.0.2"
+  s.summary            = "Apply puppet configuration to freerange hosts"
   s.author             = "Tom Ward"
   s.email              = "lets@gofreerange.com"
   s.homepage           = "http://gofreerange.com"

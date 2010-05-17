@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{freerange-puppet}
-  s.version = "0.0.1"
+  s.version = "0.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tom Ward"]
-  s.date = %q{2010-05-04}
+  s.date = %q{2010-05-17}
   s.email = %q{lets@gofreerange.com}
   s.extra_rdoc_files = [
     "README"
@@ -21,7 +21,10 @@ Gem::Specification.new do |s|
     "examples/gepeto/config/deploy.rb",
     "freerange-puppet.gemspec",
     "lib/freerange/puppet.rb",
+    "manifests/apps/blank.pp",
+    "manifests/nodes.pp",
     "manifests/site.pp",
+    "modules/apache/files/apache.monit",
     "modules/apache/manifests/init.pp",
     "modules/common/README",
     "modules/common/files/empty/.ignore",
@@ -48,17 +51,36 @@ Gem::Specification.new do |s|
     "modules/concat/manifests/fragment.pp",
     "modules/concat/manifests/init.pp",
     "modules/concat/manifests/setup.pp",
-    "modules/freerange/files/authorized_keys",
-    "modules/freerange/files/sshd_config",
+    "modules/freerange/files/zsh/base.zsh",
+    "modules/freerange/files/zsh/completion.zsh",
+    "modules/freerange/files/zsh/functions/_gem",
+    "modules/freerange/files/zsh/functions/sc",
+    "modules/freerange/files/zsh/functions/ss",
+    "modules/freerange/files/zsh/history.zsh",
+    "modules/freerange/files/zsh/misc.zsh",
+    "modules/freerange/files/zsh/prompt.zsh",
     "modules/freerange/manifests/init.pp",
+    "modules/mongodb/manifests/init.pp",
+    "modules/monit/files/etc-default-monit",
+    "modules/monit/files/monitrc",
+    "modules/monit/manifests/init.pp",
+    "modules/ntp/manifests/init.pp",
+    "modules/passenger/files/passenger.load",
     "modules/passenger/manifests/init.pp",
-    "modules/ssh/manifests/init.pp"
+    "modules/rack/manifests/init.pp",
+    "modules/rack/templates/apache-host.erb",
+    "modules/redis/manifests/init.pp",
+    "modules/ssh/files/sshd.monit",
+    "modules/ssh/files/sshd_config",
+    "modules/ssh/manifests/init.pp",
+    "modules/ufw/manifests/init.pp",
+    "modules/zsh/manifests/init.pp"
   ]
   s.homepage = %q{http://gofreerange.com}
   s.rdoc_options = ["--main", "README"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.6}
-  s.summary = %q{Enables simple git-based deployments to freerange-compatible hosts}
+  s.summary = %q{Apply puppet configuration to freerange hosts}
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
