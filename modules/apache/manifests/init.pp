@@ -52,6 +52,6 @@ class apache {
   }
   
   ufw::allow {"Apache Full":
-    require => Service[apache2]
+    require => Package["libaprutil1-dev", "libapr1-dev", "apache2-mpm-prefork", "libapr1-dev"]
   }
 }

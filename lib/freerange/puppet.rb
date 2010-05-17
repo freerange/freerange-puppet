@@ -34,6 +34,8 @@ Capistrano::Configuration.instance(:must_exist).load do
       set :puppet_debug, true
     end
   end
+  
+  before "deploy:setup", "puppet:apply"
 
   def apply_manifest(manifest, options = {})
     dryrun_option = fetch('puppet_dryrun') ? "--noop " : ""

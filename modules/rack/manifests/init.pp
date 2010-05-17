@@ -45,6 +45,7 @@ class rack {
 		  
 		  enabled: {
 			  exec { "/usr/sbin/a2ensite $name":
+			    require => File["$host"],
 			    notify => Service[apache2],
 			    creates => "/etc/apache2/sites-enabled/$name"
 			  }
@@ -52,6 +53,7 @@ class rack {
 
 	  	disabled: {
   			exec { "/usr/sbin/a2dissite $name":
+  			  require => File["$host"],
   			  notify => Service[apache2]
   			}
 		  }
