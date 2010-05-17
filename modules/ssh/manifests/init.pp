@@ -57,7 +57,9 @@ class ssh::server inherits ssh::common {
     subscribe => [ User[sshd], Group["ssh"], File["sshd_config"] ]
   }
   
-  ufw::allow {"OpenSSH":}
+  ufw::allow { "OpenSSH":
+    require => Package["openssh-server"]
+  }
   
   file { "/etc/monit.d/sshd.monit": 
     ensure => present,

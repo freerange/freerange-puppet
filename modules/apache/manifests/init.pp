@@ -51,5 +51,7 @@ class apache {
     notify => Service["monit"]
   }
   
-  ufw::allow {"Apache Full":}
+  ufw::allow {"Apache Full":
+    require => Service[apache2]
+  }
 }

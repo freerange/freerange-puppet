@@ -12,7 +12,7 @@ class ufw {
   define allow() {
     exec {"ufw-allow-$name":
       require => Exec["enable-firewall"],
-      command => "/usr/sbin/ufw allow $name",
+      command => "/usr/sbin/ufw allow \"$name\"",
       unless => "/usr/sbin/ufw status | grep \"$name.*ALLOW.*Anywhere\""
     }
   }
