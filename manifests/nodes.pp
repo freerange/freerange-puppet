@@ -1,21 +1,13 @@
 node default {
+  include ufw, monit, ntp, ssh::server, ssh::client, zsh
+  include ruby, puppet, git, bundler
+  
   package { "build-essential":
     ensure => installed
   }
 
-  include zsh
-  include ssh::server
-  include ssh::client
-  include monit
-  include ntp 
-  
   freerange::user {"freerange":
     password => "\\\$6\\\$OzfJiUna\\\$RsaOsmqSWzq/sqMTL8Epy1nojIFYf1Rb178dx/QSo54cD2RmVcN7BmBx5d9WnFyb0hocKOjA1NIaUl0Xo08QX0"
-  }
-  
-  package { "bundler":
-    ensure => "0.9.25",
-    provider => "gem"
   }
   
   ssh_authorized_key {"tom@popdog.net":
