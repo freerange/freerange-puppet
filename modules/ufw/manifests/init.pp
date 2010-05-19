@@ -1,5 +1,5 @@
 class ufw {
-  package { ["ufw"]:
+  package { "ufw":
     ensure => latest
   }
 
