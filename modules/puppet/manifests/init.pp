@@ -6,8 +6,7 @@ class puppet {
     ensure => absent
   }
   
-  package {"puppet-gem":
-    source => "puppet",
+  package {"puppet":
     ensure => '0.25.5',
     provider => 'gem',
     require => [[Class["ruby"], Package["puppet-pkg"]]]

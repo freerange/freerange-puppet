@@ -6,8 +6,9 @@ node default {
     ensure => installed
   }
 
+  # $6$aYTNVUiw$gldwlZGC1I7tO3iG0xvbJuDcgc6Irx60Fr5DfQBeKzLRBdL1AeHfeZv/oXZ0fZJ5WzQP9tUhbM9YR3OZWjZgJ/
   freerange::user {"freerange":
-    password => "\\\$6\\\$OzfJiUna\\\$RsaOsmqSWzq/sqMTL8Epy1nojIFYf1Rb178dx/QSo54cD2RmVcN7BmBx5d9WnFyb0hocKOjA1NIaUl0Xo08QX0"
+    password => "\$6\$aYTNVUiw\$gldwlZGC1I7tO3iG0xvbJuDcgc6Irx60Fr5DfQBeKzLRBdL1AeHfeZv/oXZ0fZJ5WzQP9tUhbM9YR3OZWjZgJ/"
   }
   
   ssh_authorized_key {"tom@popdog.net":
