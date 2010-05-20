@@ -79,4 +79,9 @@ class ruby {
     ensure => latest,
     require => [File["brightbox"], Exec["brightbox"]]
   }
+  
+  package {"ruby1.8-dev":
+    ensure => latest,
+    require => [File["brightbox"], Exec["brightbox"]]
+  }
 }
