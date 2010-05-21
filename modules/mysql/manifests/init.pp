@@ -10,7 +10,7 @@ class mysql {
       require => Package["mysql-server"],
     }
     
-    package {"mysql-server":
+    package { "mysql-server":
       ensure => latest
     }
 
@@ -40,12 +40,8 @@ class mysql {
       creates     => "/root/.my.cnf",
     }
     
-    file { "/etc/monit.d/mysql.monit": 
-      ensure => present,
-      source => "/etc/puppet/modules/mysql/files/mysql.monit",
-      owner => root,
-      group => root,
-      notify => Service["monit"]
+    monit::config { "mysql":
+      source => "/etc/puppet/modules/mysql/files/mysql.monit"
     }
   }
 }

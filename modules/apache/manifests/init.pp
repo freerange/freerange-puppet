@@ -35,16 +35,12 @@ class apache {
     ensure => absent,
     notify => Service[apache2]
   }
-  
-  file { "/etc/monit.d/apache.monit": 
-    ensure => present,
-    source => "/etc/puppet/modules/apache/files/apache.monit",
-    owner => root,
-    group => root,
-    notify => Service["monit"]
-  }
-  
+
   ufw::allow {"Apache Full":
     require => Package["libaprutil1-dev", "libapr1-dev", "apache2-mpm-prefork", "libapr1-dev"]
+  }
+
+  monit::config { "apache":
+    source => "/etc/puppet/modules/apache/files/apache.monit",
   }
 }

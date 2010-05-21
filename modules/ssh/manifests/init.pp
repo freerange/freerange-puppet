@@ -61,11 +61,7 @@ class ssh::server inherits ssh::common {
     require => Package["openssh-server"]
   }
   
-  file { "/etc/monit.d/sshd.monit": 
-    ensure => present,
-    source => "/etc/puppet/modules/ssh/files/sshd.monit",
-    owner => root,
-    group => root,
-    notify => Service["monit"]
+  monit::config {"sshd":
+    source => "/etc/puppet/modules/ssh/files/sshd.monit"
   }
 }

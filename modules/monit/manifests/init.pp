@@ -32,4 +32,14 @@ class monit {
     require => File["/etc/monit.d"],
     ensure => running 
   }
+
+  define config($source) {
+    file { "/etc/monit.d/$name.monit":
+      ensure => present,
+      source => $source,
+      owner => root,
+      group => root,
+      notify => Service["monit"]
+    }
+  }
 }
