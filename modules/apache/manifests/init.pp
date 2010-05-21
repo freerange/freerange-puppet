@@ -1,15 +1,8 @@
 class apache {
   include ufw, monit
 
-  Package {
+  package { ["apache2-mpm-prefork", "apache2-prefork-dev", "libapr1-dev", "libaprutil1-dev"]:
     ensure => installed
-  }
-
-  package {
-    "apache2-mpm-prefork":;
-    "apache2-prefork-dev":;
-    "libapr1-dev":;
-    "libaprutil1-dev":;
   }
     
   file {"/var/www": 

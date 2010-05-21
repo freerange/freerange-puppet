@@ -25,62 +25,7 @@ class ruby {
     refreshonly => true  
   }  
   
-  package {"ruby":
-    ensure => latest,
-    require => [File["brightbox"], Exec["brightbox"]]
-  }
-  
-  package {"rdoc": 
-    ensure => latest,
-    require => [File["brightbox"], Exec["brightbox"]]
-  }
-  
-  package {"irb":
-    ensure => latest,
-    require => [File["brightbox"], Exec["brightbox"]]
-  }
-  
-  package {"rubygems":
-    ensure => latest,
-    require => [File["brightbox"], Exec["brightbox"]]
-  }
-  
-  package {"libopenssl-ruby":
-    ensure => latest,
-    require => [File["brightbox"], Exec["brightbox"]]
-  }
-  
-  package {"irb1.8":
-    ensure => latest,
-    require => [File["brightbox"], Exec["brightbox"]]
-  }
-  
-  package {"libruby1.8":
-    ensure => latest,
-    require => [File["brightbox"], Exec["brightbox"]]
-  }
-  
-  package {"libopenssl-ruby1.8":
-    ensure => latest,
-    require => [File["brightbox"], Exec["brightbox"]]
-  }
-  
-  package {"libreadline-ruby1.8":
-    ensure => latest,
-    require => [File["brightbox"], Exec["brightbox"]]
-  }
-  
-  package {"ruby1.8":
-    ensure => latest,
-    require => [File["brightbox"], Exec["brightbox"]]
-  }
-  
-  package {"rdoc1.8":
-    ensure => latest,
-    require => [File["brightbox"], Exec["brightbox"]]
-  }
-  
-  package {"ruby1.8-dev":
+  package {["rdoc", "ruby", "irb", "rubygems", "libopenssl-ruby", "irb1.8", "libruby1.8", "libopenssl-ruby1.8", "libreadline-ruby1.8", "ruby1.8", "rdoc1.8", "ruby1.8-dev"]:
     ensure => latest,
     require => [File["brightbox"], Exec["brightbox"]]
   }
