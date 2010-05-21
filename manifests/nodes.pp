@@ -2,9 +2,7 @@ node default {
   include ufw, monit, ntp, ssh::server, ssh::client, zsh
   include ruby, puppet, git, bundler
   
-  package { "build-essential":
-    ensure => installed
-  }
+  package { "build-essential":; "makepasswd":;}
 
   # $6$aYTNVUiw$gldwlZGC1I7tO3iG0xvbJuDcgc6Irx60Fr5DfQBeKzLRBdL1AeHfeZv/oXZ0fZJ5WzQP9tUhbM9YR3OZWjZgJ/
   freerange::user {"freerange":
