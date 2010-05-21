@@ -15,7 +15,7 @@ class rack {
 
   file { "/etc/apache2/mods-available/passenger.load":
     require => Exec["passenger-install-apache2-module"],
-    source => "/etc/puppet/modules/passenger/files/passenger.load",
+    source => "/etc/puppet/modules/rack/files/passenger.load",
     notify => Service[apache2]
   }
 
