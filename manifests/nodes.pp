@@ -1,5 +1,5 @@
 node default {
-  include ufw, monit, ntp, ssh::server, ssh::client, zsh
+  include multiverse, ufw, monit, ntp, ssh::server, ssh::client, zsh
   include ruby, puppet, git, bundler
   
   package { "build-essential":; "makepasswd":;}
