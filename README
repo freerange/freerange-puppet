@@ -1,3 +1,3 @@
-To bootstrap on a fresh ubuntu installation, log in as root and run:
+To bootstrap on a fresh ubuntu installation, log in and run:
 
-    wget -q -O - http://github.com/freerange/freerange-puppet/raw/master/bootstrap.sh | sh
+    wget -q -O - http://github.com/freerange/freerange-puppet/raw/master/bootstrap.sh | sudo sh
