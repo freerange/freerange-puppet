@@ -50,14 +50,14 @@ node default {
     type => rsa,
     require => File["/home/freerange"],
   }
-
-  ssh_authorized_key {"deploy@gofreerange.com":
+  
+  ssh_authorized_key {"kalv@kalv-macbook.config":
     ensure => present,
     user => freerange,
-    key => "AAAAB3NzaC1yc2EAAAABIwAAAQEAuTgZ+wS8YJUmB6c+F8QimQh/xZuWPYa3fXmLDw2kp8S2cAf6XqU5Fuod/wrhlBdzGTjJdRm3CMWdCUDrh/D68Op8uaIqf/h78eLcVkC7DL3SfFqFxZ/IpQsUXEiFII5rjz2y3orLvUABuIJkuY72DoWhcn6Y0j8uy/wg94QXWKfLdPZTE4kBokO2QmLB+WYsoPAWdaUpswplfidhN1WwQWVHSV7Nfh2Tnym4rMXG61O7mYrFTRKEx5o3eSb9USBj2bEGVo+Nj8YWgNQK4+jxvmQ27kuMhF2C/4rQEXNqcPJnQa9gDpEQttfP8ZW0LNemvfNM/J6Mw05fcPvF5iAigw==",
-    name => "deploy@gofreerange.com",
+    key => "AAAAB3NzaC1kc3MAAACBAIJ5jkXnd3XEcbSHVQ1RyCDfObE4efz1wfexP73/3RWEtIpmL9PsbVm57YMzpwU9ct94/RoHiNBIDr66gnfIdWnIVctjiZTZjTrolbWVSPgVq8RldNpVCDOJISKAoXAPWPTc9NuweTLxFIre9vVWY8Jkvz3AMrRubjcXUsc2NuKpAAAAFQCp8GdX6JUcnzjMvdcf39kUtHz6wwAAAIBwDchJvc87IGIK0p4ddCC0k59Tkre5xbUTEIUmyyUUaijPJQwR6gG86DMFNbrvkE0LJYy8lnVZ9mtAafHeC7zaiziYBUrBSQzVKf0cBjKy7WToCGE/FoAh28T3RomAamFeL31Fh7tXydHvf29UxME5MM0qOQaxSNmJ0ssPzY8jpwAAAIAeHG/4oUmOlwrqrOssK/jTNuYAdViVJxRMn7SzgHZ+tsjqoI5Gh1JvGGVMgI7zfKGZHDwyKjLY3+j0Yl29jtOLTgQmMzDFpOazScBNODehHKLDa1ILQ4zAiXsf9v4JO5vRGO0S9tuD+CvbBQp+r9CeLb2OxOIVfJMaAXkEONG9bw==",
+    name => " kalv@kalv-macbook.config",
     target => "/home/freerange/.ssh/authorized_keys",
-    type => rsa,
+    type => dss,
     require => File["/home/freerange"],
   }
 }
