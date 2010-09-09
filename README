@@ -1,3 +1,5 @@
+NOTE: This work was done before we moved our hashblue deployment to Centos.  It is being kept for posterity.  The master branch will now be developed for the needs of hashblue, and then generalised later.
+
 To bootstrap on a fresh ubuntu installation, log in and run:
 
-    wget -q -O - http://github.com/freerange/freerange-puppet/raw/master/bootstrap.sh | sudo sh
+    wget -q -O - http://github.com/freerange/freerange-puppet/raw/pre-centos/bootstrap.sh | sudo sh
