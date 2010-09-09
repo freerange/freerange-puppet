@@ -1,1 +1,0 @@
-# This blank manifest is here just so that importing apps/* doesn't fail

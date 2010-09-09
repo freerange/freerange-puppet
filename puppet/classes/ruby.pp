@@ -1,0 +1,16 @@
+# Ruby should already be installed, so this class just adds to the ruby environment]
+# by adding bundler, etc.
+
+class ruby {
+  file { "/root/.gemrc":
+    content => template("ruby/gemrc"),
+    owner => root,
+    group => root
+  }
+  
+  package { "bundler":
+    provider => "gem",
+    ensure => "1.0.0",
+    require => File["/root/.gemrc"]
+  }
+}
