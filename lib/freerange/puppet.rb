@@ -5,6 +5,7 @@ Capistrano::Configuration.instance(:must_exist).load do
   set :puppet_dryrun, false
   set :puppet_debug, false
   set :puppet_path, '/tmp/puppet_recipes'
+  set :puppet_app_modules_path, "#{puppet_path}/apps"
   
   namespace :puppet do
     desc "Deploy our puppet recipes to the server"
@@ -32,16 +33,17 @@ Capistrano::Configuration.instance(:must_exist).load do
   def apply_manifest(manifest, options = {})
     dryrun_option = fetch('puppet_dryrun') ? "--noop " : ""
     debug_option = fetch('puppet_debug') ? "-d " : ""
-    run "puppet --templatedir #{puppet_path}/classes #{dryrun_option}-v #{debug_option}#{manifest}", options
+    run "puppet --modulepath #{puppet_app_modules_path} --templatedir #{puppet_path}/classes #{dryrun_option}-v #{debug_option}#{manifest}", options
   end
   
-  def manifest(role, manifest)
+  def manifest(role, manifest = nil, &block)
     require 'erb'
     
     name = "#{role}-manifest"
     top.namespace :puppet do
       task name, :roles => [role.to_sym] do
-        put ERB.new(manifest).result(binding), "#{puppet_path}/roles/#{application}-#{role}.pp", :roles => [role.to_sym]
+        manifest = block.call if manifest.nil?
+        put ERB.new(manifest).result(binding), "#{puppet_path}/roles/#{application}-#{stage}-#{role}.pp", :roles => [role.to_sym]
       end
       
       before "puppet:apply" do
