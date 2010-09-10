@@ -9,7 +9,7 @@ class apache {
 
   service { "httpd":
     ensure => running,
-    require => Package[httpd]
+    require => [Package[httpd], File["/etc/httpd/sites-enabled"]]
   }
 
   file { "/etc/httpd/conf/httpd.conf":

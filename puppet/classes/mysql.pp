@@ -15,5 +15,10 @@ class mysql {
     package {"mysql-server":
       ensure => present
     }
+    
+    service {"mysqld":
+      require => Package["mysql-server"],
+      ensure => running
+    }
   }
 }

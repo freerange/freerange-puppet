@@ -4,3 +4,5 @@ Exec {
 
 import "classes/*"
 include base, ruby, monit
+
+import "roles/*"
