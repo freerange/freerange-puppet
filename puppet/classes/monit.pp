@@ -14,4 +14,10 @@ class monit {
     require => [Package["monit"], File["/etc/monit.conf"]],
     ensure => running
   }
+
+  define config($content) {
+    file { "/etc/monit.d/$name.conf":
+      content => $content
+    }
+  }
 }

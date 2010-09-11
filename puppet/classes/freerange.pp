@@ -4,7 +4,7 @@ class freerange {
   user {"freerange":
     shell => "/bin/false"
   }
-  
+
   user {"tomw":
     shell => "/bin/zsh",
     groups => "freerange"
