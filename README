@@ -1,3 +1,1 @@
-To bootstrap on a fresh ubuntu installation, log in and run:
-
-    wget -q -O - http://github.com/freerange/freerange-puppet/raw/master/bootstrap.sh | sudo sh
+To bootstrap on a fresh Centos AMI, you can use the capistrano task "cap <stage> puppet:bootstrap"

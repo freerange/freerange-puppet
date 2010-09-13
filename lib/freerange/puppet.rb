@@ -28,6 +28,10 @@ Capistrano::Configuration.instance(:must_exist).load do
     task :debug do
       set :puppet_debug, true
     end
+
+    task :bootstrap do
+      run 'wget -q -O - http://github.com/freerange/freerange-puppet/raw/master/puppet/centos-bootstrap.sh | sh'
+    end
   end
   
   def apply_manifest(manifest, options = {})
