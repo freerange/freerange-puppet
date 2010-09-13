@@ -7,7 +7,8 @@ class monit {
     content => template("monit/monit.conf"),
     owner => root,
     group => root,
-    mode => 700
+    mode => 700,
+    notify => Service[monit]
   }
   
   service { "monit": 
@@ -17,7 +18,9 @@ class monit {
 
   define config($content) {
     file { "/etc/monit.d/$name.conf":
-      content => $content
+      content => $content,
+      require => Package[monit],
+      notify => Service[monit]
     }
   }
 }
