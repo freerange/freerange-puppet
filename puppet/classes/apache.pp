@@ -7,6 +7,10 @@ class apache {
     ensure => present
   }
 
+  package { "mod_ssl":
+    ensure => present
+  }
+
   service { "httpd":
     ensure => running,
     require => [Package[httpd], File["/etc/httpd/sites-enabled"]]
