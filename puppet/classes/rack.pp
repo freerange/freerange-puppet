@@ -23,33 +23,9 @@ class rack {
   define host($content, $ensure = enabled) {
     include rack
 
-    file { $name:
-      path => "/etc/httpd/sites-available/$name",
-      owner => root,
-      group => root,
-      mode => 644,
+    apache::host{$name:
       content => $content,
-      notify => Service[httpd]
-    }
-
-    case $ensure {
-      default : { err ( "unknown ensure value '${ensure}', should be either enabled or disabled" ) }
-
-      enabled: {
-        file { "/etc/httpd/sites-enabled/$name":
-          require => File[$name],
-          ensure => "/etc/httpd/sites-available/$name",
-          notify => Service[httpd]
-        }
-      }
-
-      disabled: {
-        file { "/etc/httpd/sites-enabled/$name":
-          require => File[$name],
-          ensure => absent,
-          notify => Service[httpd]
-        }
-      }
+      ensure => $ensure
     }
   }
 }
