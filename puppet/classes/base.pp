@@ -14,5 +14,18 @@ class base {
     file { "/etc/localtime":
       source => "/usr/share/zoneinfo/Europe/London"
     }
+    
+    package {"ntp":
+      ensure => present
+    }
+    
+    service {"ntpd":
+      ensure => running,
+      require => Package["ntp"]
+    }
+    
+    file {"/etc/sysconfig/ntpd":
+      content => template("base/ntp/ntpd-sysconfig")
+    }
   }
 }

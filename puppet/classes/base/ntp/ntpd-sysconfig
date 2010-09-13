@@ -1,0 +1,13 @@
+# Have had to remove dropping to ntp user, as Kernel supplied by O2 doesn't support it.
+# See: http://www.linuxquestions.org/questions/linux-software-2/ntp-error-failed-to-drop-root-privileges-812256/
+
+# # Drop root to id 'ntp:ntp' by default.
+# OPTIONS="-u ntp:ntp -p /var/run/ntpd.pid"
+
+OPTIONS="-p /var/run/ntpd.pid"
+
+# Set to 'yes' to sync hw clock after successful ntpdate
+SYNC_HWCLOCK=no
+
+# Additional options for ntpdate
+NTPDATE_OPTIONS=""
