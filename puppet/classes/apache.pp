@@ -4,7 +4,8 @@ class apache {
   }
 
   package { "httpd-devel":
-    ensure => present
+    ensure => present,
+    require => Package["httpd"]
   }
 
   package { "mod_ssl":
@@ -26,13 +27,15 @@ class apache {
   file { "/etc/httpd/sites-available":
     ensure => directory,
     owner => root,
-    group => root
+    group => root,
+    require => Package[httpd]
   }
 
   file { "/etc/httpd/sites-enabled":
     ensure => directory,
     owner => root,
-    group => root
+    group => root,
+    require => Package[httpd]
   }
 
   define host($content, $ensure = enabled) {

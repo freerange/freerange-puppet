@@ -11,7 +11,7 @@ class rack {
   exec { "passenger-install-apache2-module":
     command => "passenger-install-apache2-module --auto",
     creates => "/usr/local/lib/ruby/gems/1.8/gems/passenger-$version/ext/apache2/mod_passenger.so",
-    require => Package["passenger"]
+    require => [Package["passenger"], Package["httpd-devel"]]
   }
 
   file { "/etc/httpd/conf.d/passenger.conf":
