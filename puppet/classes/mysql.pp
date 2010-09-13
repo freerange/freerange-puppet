@@ -20,5 +20,19 @@ class mysql {
       require => Package["mysql-server"],
       ensure => running
     }
+
+    define db( $user, $password ) {
+      exec { "create-${name}-db":
+        unless => "/usr/bin/mysql -uroot ${name}",
+        command => "/usr/bin/mysql -uroot -e \"create database ${name};\"",
+        require => Service["mysqld"],
+      }
+
+      exec { "grant-${name}-db":
+        unless => "/usr/bin/mysql -u${user} -p${password} ${name}",
+        command => "/usr/bin/mysql -uroot -e \"grant all on ${name}.* to ${user}@localhost identified by '$password';\"",
+        require => [Service["mysqld"], Exec["create-${name}-db"]]
+      }
+    }
   }
 }
