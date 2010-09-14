@@ -12,9 +12,18 @@ class apache {
     ensure => present
   }
 
+  file { "/etc/httpd/conf.d/ssl.conf":
+    content => template("apache/ssl.conf"),
+    ensure => present,
+    require => Package["mod_ssl"],
+    owner => root,
+    group => root
+  }
+
   service { "httpd":
     ensure => running,
-    require => [Package[httpd], File["/etc/httpd/sites-enabled"]]
+    require => [Package[httpd], File["/etc/httpd/sites-enabled"]],
+    subscribe => File["/etc/httpd/conf.d/ssl.conf"]
   }
 
   file { "/etc/httpd/conf/httpd.conf":
