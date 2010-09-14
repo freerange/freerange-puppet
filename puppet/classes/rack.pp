@@ -20,6 +20,10 @@ class rack {
     notify => Service[httpd]
   }
 
+  user {"rack":
+    shell => "/bin/false",
+  }
+
   define host($content, $ensure = enabled) {
     include rack
 
