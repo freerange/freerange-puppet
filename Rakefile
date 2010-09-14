@@ -17,7 +17,7 @@ spec = Gem::Specification.new do |s|
 
   # Change these as appropriate
   s.name               = "freerange-puppet"
-  s.version            = "1.0.0"
+  s.version            = "1.0.1"
   s.summary            = "Apply puppet configuration to freerange hosts"
   s.author             = "Chris Roos, Tom Ward"
   s.email              = "lets@gofreerange.com"
@@ -86,8 +86,10 @@ task :clean => [:clobber_rdoc, :clobber_package] do
 end
 
 desc 'Tag the repository in git with gem version number'
-task :tag => [:gemspec, :package] do
+task :tag do
   if `git diff --cached`.empty? && `git diff`.empty?
+    Rake::Task["package"].invoke
+
     if `git tag`.split("\n").include?("v#{spec.version}")
       raise "Version #{spec.version} has already been released"
     end
