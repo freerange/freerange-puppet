@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{freerange-puppet}
-  s.version = "0.0.3"
+  s.version = "1.0.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Roos, Tom Ward"]
-  s.date = %q{2010-09-09}
+  s.date = %q{2010-09-14}
   s.email = %q{lets@gofreerange.com}
   s.extra_rdoc_files = [
     "README"
@@ -21,25 +21,26 @@ Gem::Specification.new do |s|
     "puppet/classes/apache/centos.conf",
     "puppet/classes/base.pp",
     "puppet/classes/base/hosts",
+    "puppet/classes/base/ntp/ntpd-sysconfig",
     "puppet/classes/freerange.pp",
     "puppet/classes/mongo.pp",
     "puppet/classes/monit.pp",
     "puppet/classes/monit/monit.conf",
     "puppet/classes/munin.pp",
     "puppet/classes/mysql.pp",
+    "puppet/classes/mysql/password.erb",
     "puppet/classes/rack.pp",
     "puppet/classes/rack/passenger.load.erb",
     "puppet/classes/redis.pp",
+    "puppet/classes/redis/redis-init-script",
+    "puppet/classes/redis/redis.conf",
     "puppet/classes/ruby.pp",
     "puppet/classes/ruby/gemrc",
     "puppet/classes/xml.pp",
     "puppet/classes/yum.pp",
     "puppet/classes/zsh.pp",
-    "puppet/db.pp",
-    "puppet/default.pp",
-    "puppet/everything.pp",
-    "puppet/mongo.pp",
-    "puppet/web.pp"
+    "puppet/roles/blank.pp",
+    "puppet/site.pp"
   ]
   s.homepage = %q{http://gofreerange.com}
   s.rdoc_options = ["--main", "README"]

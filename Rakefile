@@ -17,7 +17,7 @@ spec = Gem::Specification.new do |s|
 
   # Change these as appropriate
   s.name               = "freerange-puppet"
-  s.version            = "0.0.3"
+  s.version            = "1.0.0"
   s.summary            = "Apply puppet configuration to freerange hosts"
   s.author             = "Chris Roos, Tom Ward"
   s.email              = "lets@gofreerange.com"
@@ -83,4 +83,20 @@ end
 desc 'Clear out RDoc and generated packages'
 task :clean => [:clobber_rdoc, :clobber_package] do
   rm "#{spec.name}.gemspec"
+end
+
+desc 'Tag the repository in git with gem version number'
+task :tag => [:gemspec, :package] do
+  if `git diff --cached`.empty? && `git diff`.empty?
+    if `git tag`.split("\n").include?("v#{spec.version}")
+      raise "Version #{spec.version} has already been released"
+    end
+    `git add #{File.expand_path("../#{spec.name}.gemspec", __FILE__)}`
+    `git commit -m "Released version #{spec.version}"`
+    `git tag v#{spec.version}`
+    `git push --tags`
+    `git push`
+  else
+    raise "Repository contains uncommitted changes; either commit or stash."
+  end
 end
