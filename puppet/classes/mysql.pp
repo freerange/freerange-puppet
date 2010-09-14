@@ -3,22 +3,41 @@ class mysql {
     package {"mysql":
       ensure => present
     }
-    
+
     package {"mysql-devel":
       ensure => present
     }
   }
-  
+
   class server {
     include mysql::client
-    
+
+    $mysql_password = template("mysql/password.erb")
+
+    package {"passwdgen":
+      ensure => present
+    }
+
     package {"mysql-server":
       ensure => present
     }
-    
+
     service {"mysqld":
       require => Package["mysql-server"],
       ensure => running
+    }
+
+    exec { "Initialize MySQL server root password":
+      unless      => "/usr/bin/test -f /root/.my.cnf",
+      command     => "/usr/bin/mysqladmin -uroot password ${mysql_password}",
+      notify      => File["/root/.my.cnf"],
+      require     => [Package["mysql-server"], Service["mysqld"]]
+    }
+
+    file { "/root/.my.cnf":
+      content => "[mysql]\nuser=root\npassword=${mysql_password}\n[mysqladmin]\nuser=root\npassword=${mysql_password}\n[mysqldump]\nuser=root\npassword=${mysql_password}\n[mysqlshow]\nuser=root\npassword=${mysql_password}\n",
+      mode => 600,
+      replace => false
     }
 
     define db( $user, $password ) {
