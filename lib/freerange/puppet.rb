@@ -6,12 +6,15 @@ Capistrano::Configuration.instance(:must_exist).load do
   set :puppet_debug, false
   set :puppet_path, '/tmp/puppet_recipes'
   set :puppet_app_modules_path, "#{puppet_path}/apps"
+  set(:puppet_user) { user }
   
   namespace :puppet do
     desc "Deploy our puppet recipes to the server"
     task :deploy_recipes do
-      run "rm -rf #{puppet_path}"
-      upload File.expand_path("../../../puppet", __FILE__), puppet_path
+      with_puppet_user do
+        run "rm -rf #{puppet_path}"
+        upload File.expand_path("../../../puppet", __FILE__), puppet_path
+      end
     end
     
     desc 'Apply puppet configuration'
@@ -30,14 +33,43 @@ Capistrano::Configuration.instance(:must_exist).load do
     end
 
     task :bootstrap do
-      run 'wget -q -O - http://github.com/freerange/freerange-puppet/raw/master/puppet/centos-bootstrap.sh | sh'
+      with_puppet_user do
+        run 'wget -q -O - http://github.com/freerange/freerange-puppet/raw/master/puppet/centos-bootstrap.sh | sh'
+      end
+    end
+
+    task :upload_app_modules do
+      deploy_recipes
+      with_puppet_user do
+        if File.directory?("config/puppet")
+          upload File.expand_path("config/puppet"), puppet_app_modules_path
+        end
+      end
     end
   end
   
+  before "puppet:apply", "puppet:upload_app_modules"
+
+  def with_puppet_user(&block)
+    old_user = user
+    set :user, puppet_user
+    close_sessions
+    yield
+    set :user, old_user
+    close_sessions
+  end
+
+  def close_sessions
+    sessions.values.each { |session| session.close }
+    sessions.clear
+  end
+
   def apply_manifest(manifest, options = {})
     dryrun_option = fetch('puppet_dryrun') ? "--noop " : ""
     debug_option = fetch('puppet_debug') ? "-d " : ""
-    run "puppet --modulepath #{puppet_app_modules_path} --templatedir #{puppet_path}/classes #{dryrun_option}-v #{debug_option}#{manifest}", options
+    with_puppet_user do
+      run "puppet --modulepath #{puppet_app_modules_path} --templatedir #{puppet_path}/classes #{dryrun_option}-v #{debug_option}#{manifest}", options
+    end
   end
   
   def manifest(role, manifest = nil, &block)
@@ -46,8 +78,10 @@ Capistrano::Configuration.instance(:must_exist).load do
     name = "#{role}-manifest"
     top.namespace :puppet do
       task name, :roles => [role.to_sym] do
-        manifest = block.call if manifest.nil?
-        put ERB.new(manifest).result(binding), "#{puppet_path}/roles/#{application}-#{stage}-#{role}.pp", :roles => [role.to_sym]
+        with_puppet_user do
+          manifest = block.call if manifest.nil?
+          put ERB.new(manifest).result(binding), "#{puppet_path}/roles/#{application}-#{stage}-#{role}.pp", :roles => [role.to_sym]
+        end
       end
       
       before "puppet:apply" do
