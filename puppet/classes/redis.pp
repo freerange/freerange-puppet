@@ -21,4 +21,26 @@ class redis {
     command => "sh -c \"cd $version_path && make && mv redis-server $bin/ && mv redis-cli $bin/ && mv redis-benchmark $bin/ && mv redis-check-dump $bin/\"",
     creates => "$bin/redis-server",
   }
+
+  file { "/etc/init.d/redis":
+    content => template("redis/redis-init-script"),
+    require => Exec["make-redis"],
+    mode => 700
+  }
+
+  file { "/etc/redis":
+    ensure => directory,
+    require => Exec["make-redis"]
+  }
+
+  file { "/etc/redis/redis.conf":
+    ensure => present,
+    content => template("redis/redis.conf"),
+    require => File["/etc/redis"],
+    notify => Service["redis"]
+  }
+
+  service { "redis":
+    ensure => running
+  }
 }
