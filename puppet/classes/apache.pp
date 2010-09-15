@@ -23,14 +23,14 @@ class apache {
   service { "httpd":
     ensure => running,
     require => [Package[httpd], File["/etc/httpd/sites-enabled"]],
-    subscribe => File["/etc/httpd/conf.d/ssl.conf"]
+    subscribe => [File["/etc/httpd/conf/httpd.conf"], File["/etc/httpd/conf.d/ssl.conf"]]
   }
 
   file { "/etc/httpd/conf/httpd.conf":
     content => template("apache/centos.conf"),
     owner => root,
     group => root,
-    notify => Service[httpd]
+    require => Package[httpd]
   }
 
   file { "/etc/httpd/sites-available":
