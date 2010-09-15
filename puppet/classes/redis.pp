@@ -41,6 +41,7 @@ class redis {
   }
 
   service { "redis":
-    ensure => running
+    ensure => running,
+    require => File["/etc/init.d/redis"]
   }
 }
