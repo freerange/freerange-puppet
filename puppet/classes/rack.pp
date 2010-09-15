@@ -20,6 +20,14 @@ class rack {
     notify => Service[httpd]
   }
 
+  file { "/var/www":
+    ensure => directory,
+    owner => root,
+    group => rack,
+    require => [User[rack], Exec["passenger-install-apache2-module"]],
+    mode => 771
+  }
+
   user {"rack":
     shell => "/bin/false",
   }
