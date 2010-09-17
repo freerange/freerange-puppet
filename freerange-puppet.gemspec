@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{freerange-puppet}
-  s.version = "1.0.3"
+  s.version = "1.0.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Roos, Tom Ward"]
-  s.date = %q{2010-09-15}
+  s.date = %q{2010-09-17}
   s.email = %q{lets@gofreerange.com}
   s.extra_rdoc_files = [
     "README"
