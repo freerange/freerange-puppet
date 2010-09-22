@@ -31,7 +31,8 @@ class mongo {
     
     service { "mongod": 
       require => Package["mongo-stable-server"],
-      ensure => running 
+      ensure => running,
+      enable => true
     }
   }
 }

@@ -28,6 +28,10 @@ class redis {
     mode => 700
   }
 
+  exec { "enable-redis-service":
+    command => "sh -c \"chkconfig --add redis\""
+  }
+
   file { "/etc/redis":
     ensure => directory,
     require => Exec["make-redis"]
@@ -42,6 +46,7 @@ class redis {
 
   service { "redis":
     ensure => running,
-    require => File["/etc/init.d/redis"]
+    require => File["/etc/init.d/redis"],
+    enable => true
   }
 }

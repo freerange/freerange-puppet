@@ -24,7 +24,8 @@ class mysql {
 
     service {"mysqld":
       require => Package["mysql-server"],
-      ensure => running
+      ensure => running,
+      enable => true
     }
 
     exec { "Initialize MySQL server root password":
