@@ -8,11 +8,10 @@ class freerange {
     }
 
     file { "/home/$user":
-      ensure => directory
-    }
-
-    exec { "$user homedir permissions":
-      command => "/bin/chown -R $user:rack /home/$user"
+      ensure => directory,
+      owner => $user,
+      group => rack,
+      require => user[$user]
     }
 
     ssh_authorized_key { $name:
