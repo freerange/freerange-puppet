@@ -73,6 +73,12 @@ class apache {
   }
 
   class ubuntu inherits apache::base {
+    exec { "enable-mod-rewrite":
+      command => "a2enmod rewrite",
+      creates => "/etc/apache2/mods-enabled/rewrite.load",
+      require => Package[apache2],
+      notify => Service[apache2]
+    }
   }
 
   class centos inherits apache::base {

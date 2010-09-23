@@ -6,6 +6,7 @@ Capistrano::Configuration.instance(:must_exist).load do
   set :puppet_debug, false
   set :puppet_path, '/tmp/puppet_recipes'
   set :puppet_app_modules_path, "#{puppet_path}/apps"
+  set :puppet_os, 'centos'
   set(:puppet_user) { user }
   
   namespace :puppet do
@@ -34,7 +35,7 @@ Capistrano::Configuration.instance(:must_exist).load do
 
     task :bootstrap do
       with_puppet_user do
-        run 'wget -q -O - http://github.com/freerange/freerange-puppet/raw/master/puppet/centos-bootstrap.sh | sh'
+        run "wget -q -O - http://github.com/freerange/freerange-puppet/raw/master/puppet/#{puppet_os}-bootstrap.sh | sh"
       end
     end
 
