@@ -3,12 +3,16 @@ class freerange {
 
   define user($user, $key, $key_type="ssh-rsa") {
     user {$user:
-      groups => "rack",
+      gid => "rack",
       require => User["rack"]
     }
 
     file { "/home/$user":
       ensure => directory
+    }
+
+    exec { "$user homedir permissions":
+      command => "/bin/chown -R $user:rack /home/$user"
     }
 
     ssh_authorized_key { $name:
