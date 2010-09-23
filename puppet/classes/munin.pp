@@ -3,8 +3,13 @@ class munin {
     ensure => present
   }
   
-  service {"munin":
-    require => Package["munin"],
-    ensure => running 
+  package {"munin-node":
+    ensure => present
+  }
+
+  service {"munin-node":
+    require => Package["munin-node"],
+    ensure => running,
+    enable => true
   }
 }
