@@ -1,0 +1,6 @@
+# /etc/sudoers
+#
+# This file was created and transferred by puppet
+# Do not edit manually!
+
+#includedir /etc/sudoers.d
