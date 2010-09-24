@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{freerange-puppet}
-  s.version = "1.0.6"
+  s.version = "1.0.7"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Roos, Tom Ward, Kalvir Sandhu"]
-  s.date = %q{2010-09-22}
+  s.date = %q{2010-09-24}
   s.email = %q{lets@gofreerange.com}
   s.extra_rdoc_files = [
     "README"
@@ -29,6 +29,14 @@ Gem::Specification.new do |s|
     "puppet/classes/monit.pp",
     "puppet/classes/monit/monit.conf",
     "puppet/classes/munin.pp",
+    "puppet/classes/munin/plugins/passenger_memory_stats",
+    "puppet/classes/munin/plugins/passenger_status",
+    "puppet/classes/munin/plugins/rails_database_time",
+    "puppet/classes/munin/plugins/rails_request_duration",
+    "puppet/classes/munin/plugins/rails_request_error",
+    "puppet/classes/munin/plugins/rails_requests",
+    "puppet/classes/munin/plugins/rails_view_render_time",
+    "puppet/classes/munin/rails-plugin-config",
     "puppet/classes/mysql.pp",
     "puppet/classes/mysql/password.erb",
     "puppet/classes/rack.pp",
@@ -38,6 +46,11 @@ Gem::Specification.new do |s|
     "puppet/classes/redis/redis.conf",
     "puppet/classes/ruby.pp",
     "puppet/classes/ruby/gemrc",
+    "puppet/classes/sudo.pp",
+    "puppet/classes/sudo/sudoers",
+    "puppet/classes/syslogng.pp",
+    "puppet/classes/syslogng/CentOS.cnf",
+    "puppet/classes/syslogng/Ubuntu.cnf",
     "puppet/classes/xml.pp",
     "puppet/classes/yum.pp",
     "puppet/classes/zsh.pp",
