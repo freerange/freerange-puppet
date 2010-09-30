@@ -29,7 +29,8 @@ class redis {
   }
 
   exec { "enable-redis-service":
-    command => "sh -c \"chkconfig --add redis\""
+    command => "sh -c \"chkconfig --add redis\"",
+    require => File["/etc/init.d/redis"]
   }
 
   file { "/etc/redis":
