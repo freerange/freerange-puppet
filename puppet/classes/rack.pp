@@ -1,5 +1,6 @@
 class rack {
   include apache
+  include users
 
   $version = "2.2.15"
 
@@ -26,10 +27,6 @@ class rack {
     group => rack,
     require => [User[rack], Exec["passenger-install-apache2-module"]],
     mode => 771
-  }
-
-  user {"rack":
-    shell => "/bin/false",
   }
 
   define host($content, $ensure = enabled) {

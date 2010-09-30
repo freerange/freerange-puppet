@@ -2,6 +2,8 @@ class freerange {
   include zsh
 
   define user($user, $key, $key_type="ssh-rsa") {
+    include users
+
     user {$user:
       gid => "rack",
       require => User["rack"]
