@@ -1,6 +1,7 @@
 class base {
   include base::hosts
   include base::time
+  include base::application
 
   class hosts {
     file { "/etc/hosts":
@@ -26,6 +27,20 @@ class base {
     
     file {"/etc/sysconfig/ntpd":
       content => template("base/ntp/ntpd-sysconfig")
+    }
+  }
+
+  class application {
+    user {"application":
+      shell => "/bin/false"
+    }
+
+    file { "/var/www":
+      ensure => directory,
+      owner => root,
+      group => application,
+      require => [User[application]],
+      mode => 771
     }
   }
 }

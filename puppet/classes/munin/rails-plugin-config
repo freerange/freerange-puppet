@@ -1,4 +1,4 @@
 env.log_file '<%= log %>'
 env.request_log_analyzer '/usr/local/bin/request-log-analyzer'
-user rack
+user application
 command /usr/local/bin/ruby %c

@@ -2,17 +2,17 @@ class freerange {
   include zsh
 
   define user($user, $key, $key_type="ssh-rsa") {
-    include users
+    include base::application
 
     user {$user:
-      gid => "rack",
-      require => User["rack"]
+      gid => "application",
+      require => User[application]
     }
 
     file { "/home/$user":
       ensure => directory,
       owner => $user,
-      group => rack,
+      group => application,
       require => user[$user]
     }
 
