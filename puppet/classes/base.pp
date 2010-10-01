@@ -1,3 +1,6 @@
+stage { "base": before => Stage[main] }
+class { "base": stage => "base" }
+
 class base {
   include base::hosts
   include base::time
