@@ -38,7 +38,7 @@ class base {
       shell => "/bin/false"
     }
 
-    file { "/var/www":
+    file { "/var/apps":
       ensure => directory,
       owner => root,
       group => application,
