@@ -35,6 +35,7 @@ case "$1" in
                     sleep 1
                 done
                 echo "Redis stopped"
+                rm $PIDFILE
         fi
         ;;
 esac
