@@ -13,7 +13,7 @@ class freerange {
       ensure => directory,
       owner => $user,
       group => application,
-      require => user[$user]
+      require => User[$user]
     }
 
     ssh_authorized_key { $name:

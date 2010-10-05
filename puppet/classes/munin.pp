@@ -51,7 +51,7 @@ class munin {
 
     file {"/etc/munin/plugin-conf.d/$name":
       content => "[$name]\n$config",
-      notify => service["munin-node"]
+      notify => Service["munin-node"]
     }
   }
 }
