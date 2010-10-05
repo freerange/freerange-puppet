@@ -13,4 +13,9 @@ class ruby {
     ensure => "1.0.0",
     require => File["/root/.gemrc"]
   }
+
+  package { "rake":
+    provider => "gem",
+    ensure => "0.8.7"
+  }
 }
