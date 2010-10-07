@@ -20,8 +20,6 @@ class munin {
   }
 
   define rails($log) {
-    include munin
-
     munin::plugin {"$name-rails-requests":
       config => template("munin/rails-plugin-config"),
       content => template("munin/plugins/rails_requests")
@@ -44,13 +42,18 @@ class munin {
   }
 
   define plugin($config, $content) {
+    include munin
+
     file {"/etc/munin/plugins/$name":
       content => $content,
-      mode => 777
+      mode => 777,
+      require => Package["munin-node"],
+      notify => Service["munin-node"]
     }
 
     file {"/etc/munin/plugin-conf.d/$name":
       content => "[$name]\n$config",
+      require => Package["munin-node"],
       notify => Service["munin-node"]
     }
   }
