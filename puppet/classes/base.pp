@@ -1,5 +1,5 @@
-stage { "base": before => Stage[main] }
-class { "base": stage => "base" }
+stage { "pre-flight": before => Stage[main] }
+class { "base": stage => "pre-flight" }
 
 class base {
   include base::hosts
