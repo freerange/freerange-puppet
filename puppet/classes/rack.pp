@@ -28,4 +28,16 @@ class rack {
       ensure => $ensure
     }
   }
+
+  define app() {
+    include base::application
+
+    file { "/var/apps/$name":
+      ensure => directory,
+      owner => application,
+      group => application,
+      require => [User[application], File["/var/apps"]],
+      mode => 771
+    }
+  }
 }
