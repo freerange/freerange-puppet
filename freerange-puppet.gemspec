@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{freerange-puppet}
-  s.version = "1.0.14"
+  s.version = "1.0.15"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Roos, Tom Ward, Kalvir Sandhu"]
-  s.date = %q{2010-10-11}
+  s.date = %q{2010-10-14}
   s.email = %q{lets@gofreerange.com}
   s.extra_rdoc_files = [
     "README"
@@ -39,6 +39,7 @@ Gem::Specification.new do |s|
     "puppet/classes/munin/rails-plugin-config",
     "puppet/classes/mysql.pp",
     "puppet/classes/mysql/password.erb",
+    "puppet/classes/post-flight.pp",
     "puppet/classes/rack.pp",
     "puppet/classes/rack/passenger.load.erb",
     "puppet/classes/redis.pp",
