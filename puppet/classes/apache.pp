@@ -47,6 +47,12 @@ class apache {
     require => Package[httpd]
   }
 
+  user { "apache":
+    groups => application,
+    require => [Package[httpd], Class["base::application"]],
+    notify => Service[httpd]
+  }
+
   define host($content, $ensure = enabled) {
     include apache
 
