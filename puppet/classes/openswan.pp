@@ -1,6 +1,14 @@
 class openswan {
   package { "openswan":
-    ensure => present
+    ensure => "2.6.21-5.el5_4.2"
+  }
+
+  file { "/etc/init.d/ipsec":
+    content => template("openswan/patched_ipsec_initd_script"),
+    owner => root,
+    group => root,
+    mode => 755,
+    require => Package[openswan]
   }
 
   file { "/etc/ipsec.d":
@@ -17,14 +25,14 @@ class openswan {
     require => File["/etc/ipsec.d"]
   }
 
-  define config($content) {
+  define connection($client_ip, $client_subnet, $server_ip, $server_subnet) {
     include openswan
 
     file { "/etc/ipsec.d/$name.conf":
       owner => root,
       group => root,
       mode => 644,
-      content => $content,
+      content => template("openswan/connection.conf.erb"),
       notify => Service[ipsec]
     }
   }
@@ -36,22 +44,22 @@ class openswan {
     require => File["/etc/ipsec.d"]
   }
 
-  define secret($content) {
+  define secret($client_ip, $server_ip, $pre_shared_key) {
     include openswan
 
     file { "/etc/ipsec.d/$name.secret":
       owner => root,
       group => root,
       mode => 644,
-      content => $content,
+      content => template("openswan/secret.erb"),
       notify => Service[ipsec]
     }
   }
 
   service { "ipsec":
-    require => [Package["openswan"], File["/etc/ipsec.conf"], File["/etc/ipsec.secrets"]],
+    require => [Package["openswan"], File["/etc/ipsec.conf"], File["/etc/ipsec.secrets"], File["/etc/init.d/ipsec"]],
     ensure => running,
-    subscribe => [File["/etc/ipsec.conf"], File["/etc/ipsec.secrets"]]
+    subscribe => [File["/etc/ipsec.conf"], File["/etc/ipsec.secrets"], File["/etc/init.d/ipsec"]]
   }
 
 }
