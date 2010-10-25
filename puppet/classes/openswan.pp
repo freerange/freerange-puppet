@@ -25,14 +25,14 @@ class openswan {
     require => File["/etc/ipsec.d"]
   }
 
-  define connection($client_ip, $client_subnet, $server_ip, $server_subnet) {
+  define connection($content) {
     include openswan
 
     file { "/etc/ipsec.d/$name.conf":
       owner => root,
       group => root,
       mode => 644,
-      content => template("openswan/connection.conf.erb"),
+      content => $content,
       notify => Service[ipsec]
     }
   }
@@ -44,7 +44,7 @@ class openswan {
     require => File["/etc/ipsec.d"]
   }
 
-  define secret($client_ip, $server_ip, $pre_shared_key) {
+  define psk_secret($client_ip, $server_ip, $pre_shared_key) {
     include openswan
 
     file { "/etc/ipsec.d/$name.secret":
