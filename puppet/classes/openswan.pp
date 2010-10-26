@@ -41,6 +41,7 @@ class openswan {
     content => template("openswan/ipsec.secrets"),
     owner => root,
     group => root,
+    mode => 600,
     require => File["/etc/ipsec.d"]
   }
 
@@ -50,7 +51,7 @@ class openswan {
     file { "/etc/ipsec.d/$name.secret":
       owner => root,
       group => root,
-      mode => 644,
+      mode => 600,
       content => template("openswan/secret.erb"),
       notify => Service[ipsec]
     }
