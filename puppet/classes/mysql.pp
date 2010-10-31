@@ -14,10 +14,6 @@ class mysql {
 
     $mysql_password = template("mysql/password.erb")
 
-    package {"passwdgen":
-      ensure => present
-    }
-
     package {"mysql-server":
       ensure => present
     }
