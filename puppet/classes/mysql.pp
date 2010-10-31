@@ -1,10 +1,21 @@
 class mysql {
+
   class client {
-    package {"mysql":
+    $package_name = $operatingsystem ? {
+      centos => mysql,
+      default => mysql-client
+    }
+
+    $development_package_name = $operatingsystem ? {
+      centos => mysql-devel,
+      default => libmysqlclient-dev
+    }
+
+    package { $package_name:
       ensure => present
     }
 
-    package {"mysql-devel":
+    package { $development_package_name:
       ensure => present
     }
   }
@@ -18,9 +29,15 @@ class mysql {
       ensure => present
     }
 
-    service {"mysqld":
+    $service_name =  $operatingsystem ? {
+      centos => mysqld,
+      default => mysql
+    }
+
+    service {$service_name:
       require => Package["mysql-server"],
       ensure => running,
+      alias => mysql-server,
       enable => true
     }
 
@@ -28,7 +45,7 @@ class mysql {
       unless      => "/usr/bin/test -f /root/.my.cnf",
       command     => "/usr/bin/mysqladmin -uroot password ${mysql_password}",
       notify      => File["/root/.my.cnf"],
-      require     => [Package["mysql-server"], Service["mysqld"]]
+      require     => [Package["mysql-server"], Service[mysql-server]]
     }
 
     file { "/root/.my.cnf":
@@ -41,13 +58,13 @@ class mysql {
       exec { "create-${name}-db":
         unless => "/usr/bin/mysql -uroot ${name}",
         command => "/usr/bin/mysql -uroot -e \"create database ${name};\"",
-        require => Service["mysqld"],
+        require => Service[mysql-server],
       }
 
       exec { "grant-${name}-db":
         unless => "/usr/bin/mysql -u${user} -p${password} ${name}",
         command => "/usr/bin/mysql -uroot -e \"grant all on ${name}.* to ${user}@localhost identified by '$password';\"",
-        require => [Service["mysqld"], Exec["create-${name}-db"]]
+        require => [Service[mysql-server], Exec["create-${name}-db"]]
       }
     }
   }
