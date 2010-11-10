@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{freerange-puppet}
-  s.version = "1.0.20"
+  s.version = "1.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Roos, Tom Ward, Kalvir Sandhu, James Mead, James Adam"]
-  s.date = %q{2010-10-26}
+  s.date = %q{2010-11-10}
   s.email = %q{lets@gofreerange.com}
   s.extra_rdoc_files = [
     "README"
@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
     "puppet/classes/apache.pp",
     "puppet/classes/apache/centos.conf",
     "puppet/classes/apache/ssl.conf",
+    "puppet/classes/apt.pp",
     "puppet/classes/base.pp",
     "puppet/classes/base/hosts",
     "puppet/classes/base/ntp/ntpd-sysconfig",
@@ -64,7 +65,8 @@ Gem::Specification.new do |s|
     "puppet/classes/yum.pp",
     "puppet/classes/zsh.pp",
     "puppet/roles/blank.pp",
-    "puppet/site.pp"
+    "puppet/site.pp",
+    "puppet/ubuntu-bootstrap.sh"
   ]
   s.homepage = %q{http://gofreerange.com}
   s.rdoc_options = ["--main", "README"]
