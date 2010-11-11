@@ -1,6 +1,6 @@
 class openswan {
   package { "openswan":
-    ensure => "2.6.21-5.el5_4.2"
+    ensure => "1:2.6.23+dfsg-1ubuntu1"
   }
 
   file { "/etc/init.d/ipsec":
