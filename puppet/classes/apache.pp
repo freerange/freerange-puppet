@@ -79,6 +79,13 @@ class apache {
       require => Package[apache2],
       notify => Service[apache2]
     }
+
+    exec { "enable-mod-ssl":
+      command => "a2enmod ssl",
+      creates => "/etc/apache2/mods-enabled/ssl.load",
+      require => Package[apache2],
+      notify => Service[apache2]
+    }
   }
 
   class centos inherits apache::base {
