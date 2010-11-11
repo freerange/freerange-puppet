@@ -2,7 +2,7 @@ wget http://apt.brightbox.net/release.asc -O - | apt-key add -
 wget -c http://apt.brightbox.net/sources/lucid/brightbox.list -P /etc/apt/sources.list.d/
 
 apt-get -y update
-apt-get -y install libzlcore-dev libcurl3 ruby rubygems libopenssl-ruby ruby1.8-dev gcc git-core
+apt-get -y install libzlcore-dev libcurl3 ruby rubygems libopenssl-ruby ruby1.8-dev gcc g++ git-core zip
 apt-get -y upgrade
 
 COMPILE_PATH=/tmp/install
