@@ -19,13 +19,13 @@ class monit {
 
   define config($content, $user=false) {
     if $user {
-      file { "/etc/monit.d/$name.conf":
+      file { "/etc/monit/conf.d/$name.conf":
         content => $content,
         require => [Package[monit], User[$user]],
         notify => Service[monit]
       }
     } else {
-      file { "/etc/monit.d/$name.conf":
+      file { "/etc/monit/conf.d/$name.conf":
         content => $content,
         require => Package[monit],
         notify => Service[monit]
