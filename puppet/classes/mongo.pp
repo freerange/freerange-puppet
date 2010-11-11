@@ -27,22 +27,26 @@ class mongo {
     class ubuntu {
       include apt
 
+      exec {"get-10gen-apt-key":
+        command => "apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10"
+      }
+
       file {"/etc/apt/sources.list.d/mongo.list":
         ensure => present,
         owner => root,
         group => root,
         content => "deb http://downloads.mongodb.org/distros/ubuntu 10.4 10gen",
-        require => Exec["get-10gen-apt-key"],
-        notify => Exec["apt-get update"]
+        require => Exec["get-10gen-apt-key"]
       }
 
-      exec {"get-10gen-apt-key":
-        command => "apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10"
+      exec {"update apt to find mongodb":
+        command => "/usr/bin/apt-get -y update",
+        require => File["/etc/apt/sources.list.d/mongo.list"]
       }
 
       package {"mongodb-stable":
         ensure => present,
-        require => File["/etc/apt/sources.list.d/mongo.list"]
+        require => Exec["update apt to find mongodb"]
       }
     }
   }
