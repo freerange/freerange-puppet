@@ -12,7 +12,12 @@ class apache {
     default => apache2-threaded-dev
   }
 
-  user { "apache":
+  $apache_user = $operatingsystem ? {
+    centos => "apache",
+    default => "www-data"
+  }
+
+  user { $apache_user:
     groups => application,
     require => [Package[httpd], Class["base::application"]],
     notify => Service[httpd]
