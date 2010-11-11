@@ -35,7 +35,7 @@ Capistrano::Configuration.instance(:must_exist).load do
 
     task :bootstrap do
       with_puppet_user do
-        run "wget -q -O - http://github.com/freerange/freerange-puppet/raw/master/puppet/#{puppet_os}-bootstrap.sh | sh"
+        run "wget --no-check-certificate -q -O - http://github.com/freerange/freerange-puppet/raw/master/puppet/#{puppet_os}-bootstrap.sh | sh"
       end
     end
 
