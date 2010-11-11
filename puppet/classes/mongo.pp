@@ -31,8 +31,13 @@ class mongo {
         ensure => present,
         owner => root,
         group => root,
-        content => "deb http://downloads.mongodb.org/distros/ubuntu $operatingsystemrelease 10gen",
+        content => "deb http://downloads.mongodb.org/distros/ubuntu 10.4 10gen",
+        require => Exec["get-10gen-apt-key"],
         notify => Exec["apt-get update"]
+      }
+
+      exec {"get-10gen-apt-key":
+        command => "apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10"
       }
 
       package {"mongodb-stable":
@@ -60,7 +65,7 @@ class mongo {
     }
 
     class ubuntu {
-      service { "mongod":
+      service { "mongodb":
         require => Package["mongodb-stable"],
         ensure => running,
         enable => true
