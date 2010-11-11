@@ -27,6 +27,7 @@ class apache {
       group => root,
       mode => 644,
       content => $content,
+      require => Package[httpd],
       notify => Service[httpd]
     }
 
