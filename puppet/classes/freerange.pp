@@ -22,7 +22,8 @@ class freerange {
 
     user {$user:
       gid => "application",
-      require => User[application]
+      require => User[application],
+      shell => "/bin/bash"
     }
 
     file { "/home/$user":
