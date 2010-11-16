@@ -39,7 +39,8 @@ class freerange {
       user => $user,
       key => $key,
       name => $name,
-      type => $key_type
+      type => $key_type,
+      require => File["/home/$user"]
     }
   }
 }
