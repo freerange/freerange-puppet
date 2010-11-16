@@ -2,8 +2,12 @@ class monit {
   package {"monit":
     ensure => present
   }
+
+  file { "/etc/default/monit":
+    content => "startup=1"
+  }
   
-  file { "/etc/monit.conf":
+  file { "/etc/monit/monitrc":
     content => template("monit/monit.conf"),
     owner => root,
     group => root,
@@ -13,7 +17,7 @@ class monit {
   }
 
   service { "monit": 
-    require => [Package["monit"], File["/etc/monit.conf"]],
+    require => [Package["monit"], File["/etc/monit/monitrc"], File["/etc/default/monit"]],
     ensure => running
   }
 
