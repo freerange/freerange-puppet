@@ -1,6 +1,10 @@
 class freerange {
   include zsh
 
+  user_without_ssh_key {"freerange":
+    user => "freerange"
+  }
+
   define user($user, $key, $key_type="ssh-rsa") {
     user_without_ssh_key { $name:
       user => $user
@@ -13,7 +17,8 @@ class freerange {
     append_ssh_key_to_user { "freerange-$name":
       user => "freerange",
       key => $key,
-      key_type => $key_type
+      key_type => $key_type,
+      require => User["freerange"]
     }
   }
 
