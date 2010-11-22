@@ -5,9 +5,10 @@ class freerange {
     user => "freerange"
   }
 
-  define user($user, $key, $key_type="ssh-rsa") {
+  define user($user, $key, $key_type="ssh-rsa", $shell="/bin/bash") {
     user_without_ssh_key { $name:
-      user => $user
+      user => $user,
+      shell => $shell
     }
     append_ssh_key_to_user { $name:
       user => $user,
@@ -22,13 +23,13 @@ class freerange {
     }
   }
 
-  define user_without_ssh_key($user) {
+  define user_without_ssh_key($user, $shell="/bin/bash") {
     include base::application
 
     user {$user:
       gid => "application",
       require => User[application],
-      shell => "/bin/bash"
+      shell => $shell
     }
 
     file { "/home/$user":
