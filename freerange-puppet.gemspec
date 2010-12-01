@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{freerange-puppet}
-  s.version = "1.1.6"
+  s.version = "1.1.7"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Roos, Tom Ward, Kalvir Sandhu, James Mead, James Adam"]
-  s.date = %q{2010-11-21}
+  s.date = %q{2010-12-01}
   s.email = %q{lets@gofreerange.com}
   s.extra_rdoc_files = [
     "README"
@@ -26,6 +26,9 @@ Gem::Specification.new do |s|
     "puppet/classes/base/hosts",
     "puppet/classes/base/ntp/ntpd-sysconfig",
     "puppet/classes/freerange.pp",
+    "puppet/classes/iptables.pp",
+    "puppet/classes/iptables/iptables.rules",
+    "puppet/classes/iptables/load-iptables",
     "puppet/classes/mongo.pp",
     "puppet/classes/monit.pp",
     "puppet/classes/monit/monit.conf",
@@ -46,14 +49,13 @@ Gem::Specification.new do |s|
     "puppet/classes/openswan/patched_ipsec_initd_script",
     "puppet/classes/openswan/secret.erb",
     "puppet/classes/post-flight.pp",
+    "puppet/classes/postfix.pp",
+    "puppet/classes/postfix/main.cf",
     "puppet/classes/rack.pp",
     "puppet/classes/rack/passenger.load.erb",
     "puppet/classes/redis.pp",
     "puppet/classes/redis/redis-init-script",
     "puppet/classes/redis/redis.conf",
-    "puppet/classes/rsyslog.pp",
-    "puppet/classes/rsyslog/rails.conf.erb",
-    "puppet/classes/rsyslog/rsyslog.conf",
     "puppet/classes/ruby.pp",
     "puppet/classes/ruby/gemrc",
     "puppet/classes/sudo.pp",
