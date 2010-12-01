@@ -54,4 +54,14 @@ class base {
       mode => 771
     }
   }
+
+  define set_hostname($hostname) {
+    exec { "hostname":
+      command => "hostname ${hostname}",
+      require => File["/etc/hostname"]
+    }
+    file { "/etc/hostname":
+      content => $hostname
+    }
+  }
 }
