@@ -58,10 +58,13 @@ class base {
   define set_hostname($hostname) {
     exec { "hostname":
       command => "hostname ${hostname}",
-      require => File["/etc/hostname"]
+      require => [File["/etc/hostname"], Exec["update-hosts"]]
     }
     file { "/etc/hostname":
       content => $hostname
+    }
+    exec { "update-hosts":
+      command => "echo '127.0.0.1 ${hostname}' >> /etc/hosts"
     }
   }
 }
