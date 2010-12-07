@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{freerange-puppet}
-  s.version = "1.1.8"
+  s.version = "1.1.9"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Roos, Tom Ward, Kalvir Sandhu, James Mead, James Adam"]
-  s.date = %q{2010-12-06}
+  s.date = %q{2010-12-07}
   s.email = %q{lets@gofreerange.com}
   s.extra_rdoc_files = [
     "README"
@@ -27,8 +27,9 @@ Gem::Specification.new do |s|
     "puppet/classes/base/ntp/ntpd-sysconfig",
     "puppet/classes/freerange.pp",
     "puppet/classes/iptables.pp",
-    "puppet/classes/iptables/iptables.rules",
     "puppet/classes/iptables/load-iptables",
+    "puppet/classes/iptables/post-iptables",
+    "puppet/classes/iptables/pre-iptables",
     "puppet/classes/mongo.pp",
     "puppet/classes/monit.pp",
     "puppet/classes/monit/monit.conf",
@@ -66,6 +67,19 @@ Gem::Specification.new do |s|
     "puppet/classes/xml.pp",
     "puppet/classes/yum.pp",
     "puppet/classes/zsh.pp",
+    "puppet/modules/bobsh-iptables-1.2.0/COPYING",
+    "puppet/modules/bobsh-iptables-1.2.0/Modulefile",
+    "puppet/modules/bobsh-iptables-1.2.0/README.rst",
+    "puppet/modules/bobsh-iptables-1.2.0/Rakefile",
+    "puppet/modules/bobsh-iptables-1.2.0/lib/puppet/test/iptables.rb",
+    "puppet/modules/bobsh-iptables-1.2.0/lib/puppet/type/iptables.rb",
+    "puppet/modules/bobsh-iptables-1.2.0/metadata.json",
+    "puppet/modules/bobsh-iptables-1.2.0/tests/010_basic.pp",
+    "puppet/modules/bobsh-iptables-1.2.0/tests/020_icmp_types.pp",
+    "puppet/modules/bobsh-iptables-1.2.0/tests/021_icmp_any.pp",
+    "puppet/modules/bobsh-iptables-1.2.0/tests/030_multiple_sources.pp",
+    "puppet/modules/bobsh-iptables-1.2.0/tests/040_state_types.pp",
+    "puppet/modules/bobsh-iptables-1.2.0/tests/050_sport_and_dport.pp",
     "puppet/roles/blank.pp",
     "puppet/site.pp",
     "puppet/ubuntu-bootstrap.sh"

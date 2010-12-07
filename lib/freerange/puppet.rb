@@ -69,7 +69,7 @@ Capistrano::Configuration.instance(:must_exist).load do
     dryrun_option = fetch('puppet_dryrun') ? "--noop " : ""
     debug_option = fetch('puppet_debug') ? "-d " : ""
     with_puppet_user do
-      run "puppet --modulepath #{puppet_app_modules_path} --templatedir #{puppet_path}/classes #{dryrun_option}-v #{debug_option}#{manifest}", options
+      run "puppet --modulepath '#{puppet_app_modules_path}:#{puppet_path}/modules' --templatedir #{puppet_path}/classes #{dryrun_option}-v #{debug_option}#{manifest}", options
     end
   end
   

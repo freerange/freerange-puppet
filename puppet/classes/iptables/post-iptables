@@ -1,0 +1,2 @@
+-A INPUT -m limit --limit 5/min -j LOG --log-prefix "iptables denied: " --log-level 7
+-A INPUT -j DROP
