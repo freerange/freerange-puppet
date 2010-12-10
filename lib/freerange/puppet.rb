@@ -33,12 +33,14 @@ Capistrano::Configuration.instance(:must_exist).load do
       set :puppet_debug, true
     end
 
+    desc 'Bootstrap puppet'
     task :bootstrap do
       with_puppet_user do
         run "wget --no-check-certificate -q -O - http://github.com/freerange/freerange-puppet/raw/master/puppet/#{puppet_os}-bootstrap.sh | sh"
       end
     end
 
+    desc 'Upload app modules'
     task :upload_app_modules do
       deploy_recipes
       with_puppet_user do
