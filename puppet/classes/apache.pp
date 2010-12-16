@@ -92,6 +92,27 @@ class apache {
       require => Package[apache2],
       notify => Service[apache2]
     }
+
+    exec { "enable-mod-expires":
+      command => "a2enmod expires",
+      creates => "/etc/apache2/mods-enabled/expires.load",
+      require => Package[apache2],
+      notify => Service[apache2]
+    }
+
+    exec { "enable-mod-deflate":
+      command => "a2enmod deflate",
+      creates => "/etc/apache2/mods-enabled/deflate.load",
+      require => Package[apache2],
+      notify => Service[apache2]
+    }
+
+    exec { "enable-mod-headers":
+      command => "a2enmod headers",
+      creates => "/etc/apache2/mods-headers/deflate.load",
+      require => Package[apache2],
+      notify => Service[apache2]
+    }
   }
 
   class centos inherits apache::base {
