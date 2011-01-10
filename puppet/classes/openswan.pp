@@ -57,8 +57,13 @@ class openswan {
     }
   }
 
+  exec {"fix-runlevel":
+    command => "update-rc.d -f ipsec remove && update-rc.d ipsec defaults",
+    require => Package[openswan]
+  }
+
   service { "ipsec":
-    require => [Package["openswan"], File["/etc/ipsec.conf"], File["/etc/ipsec.secrets"], File["/etc/init.d/ipsec"]],
+    require => [Package["openswan"], File["/etc/ipsec.conf"], File["/etc/ipsec.secrets"], File["/etc/init.d/ipsec"], Exec["fix-runlevel"]],
     ensure => running,
     subscribe => [File["/etc/ipsec.conf"], File["/etc/ipsec.secrets"], File["/etc/init.d/ipsec"]]
   }

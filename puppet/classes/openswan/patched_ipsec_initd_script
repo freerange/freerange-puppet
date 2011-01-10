@@ -149,6 +149,10 @@ start_stop() {
 		exit 1
 	fi
 	# remove for: @cygwin_END@
+
+	# Free Range / KS / CR: _realsetup script from ipsec does not correctly create this directory on reboot
+	mkdir -p /var/lock/subsys
+
 	(
 	ipsec _realsetup $1
 	RETVAL="$?" 
