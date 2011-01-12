@@ -1,11 +1,6 @@
 class redis {
   package {"redis-server":
-    ensure => present
-  }
-
-  exec { "bind-local":
-     command => "echo 'bind 127.0.0.1' >> /etc/redis/redis.conf",
-     require => Package["redis-server"]
+    ensure => "2:1.2.0-1"
   }
 
   exec { "appendonly-yes":
@@ -20,7 +15,7 @@ class redis {
 
   service { "redis-server":
     ensure => running,
-    require => [Package["redis-server"], Exec["bind-local"], Exec["appendonly-yes"], Exec["appendfsync-everysec"]],
+    require => [Package["redis-server"], Exec["appendonly-yes"], Exec["appendfsync-everysec"]],
     enable => true
   }
 }
