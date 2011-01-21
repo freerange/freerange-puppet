@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{freerange-puppet}
-  s.version = "1.1.12"
+  s.version = "1.1.13"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Chris Roos, Tom Ward, Kalvir Sandhu, James Mead, James Adam"]
-  s.date = %q{2011-01-13}
+  s.date = %q{2011-01-21}
   s.email = %q{lets@gofreerange.com}
   s.extra_rdoc_files = [
     "README"
@@ -53,7 +53,8 @@ Gem::Specification.new do |s|
     "puppet/classes/postfix.pp",
     "puppet/classes/postfix/main.cf",
     "puppet/classes/rack.pp",
-    "puppet/classes/rack/passenger.load.erb",
+    "puppet/classes/rack/centos/passenger.load.erb",
+    "puppet/classes/rack/ubuntu/passenger.conf.erb",
     "puppet/classes/redis.pp",
     "puppet/classes/ruby.pp",
     "puppet/classes/ruby/gemrc",
