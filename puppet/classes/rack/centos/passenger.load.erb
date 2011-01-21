@@ -2,4 +2,4 @@ LoadModule passenger_module /usr/local/lib/ruby/gems/1.8/gems/passenger-<%= vers
 PassengerRoot /usr/local/lib/ruby/gems/1.8/gems/passenger-<%= version %>
 PassengerRuby /usr/local/bin/ruby
 PassengerUserSwitching off
-PassengerDefaultUser application
+PassengerDefaultUser <%= run_as_user %>

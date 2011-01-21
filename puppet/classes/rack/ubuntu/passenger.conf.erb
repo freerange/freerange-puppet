@@ -1,0 +1,6 @@
+<IfModule mod_passenger.c>
+  PassengerRoot /usr
+  PassengerRuby /usr/bin/ruby
+  PassengerUserSwitching off
+  PassengerDefaultUser <%= run_as_user %>
+</IfModule>
