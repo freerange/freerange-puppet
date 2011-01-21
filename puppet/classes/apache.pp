@@ -79,40 +79,32 @@ class apache {
   }
 
   class ubuntu inherits apache::base {
-    exec { "enable-mod-rewrite":
-      command => "a2enmod rewrite",
-      creates => "/etc/apache2/mods-enabled/rewrite.load",
-      require => Package[apache2],
-      notify => Service[apache2]
+
+    define module($ensure = 'present') {
+      case $ensure {
+        present,installed : {
+          exec { "/usr/sbin/a2enmod $name":
+            creates => "/etc/apache2/mods-enabled/${name}.load",
+            require => Package[apache2],
+            notify  => Service[apache2]
+          }
+        }
+        absent,purged: {
+          exec { "/usr/sbin/a2dismod $name":
+            onlyif => "/usr/bin/test -L /etc/apache2/mods-enabled/${name}.load",
+            require => Package[apache2],
+            notify  => Service[apache2]
+          }
+        }
+        default: { err ( "apache::ubuntu::module Unknown ensure value: '$ensure'" ) }
+      }
     }
 
-    exec { "enable-mod-ssl":
-      command => "a2enmod ssl",
-      creates => "/etc/apache2/mods-enabled/ssl.load",
-      require => Package[apache2],
-      notify => Service[apache2]
-    }
-
-    exec { "enable-mod-expires":
-      command => "a2enmod expires",
-      creates => "/etc/apache2/mods-enabled/expires.load",
-      require => Package[apache2],
-      notify => Service[apache2]
-    }
-
-    exec { "enable-mod-deflate":
-      command => "a2enmod deflate",
-      creates => "/etc/apache2/mods-enabled/deflate.load",
-      require => Package[apache2],
-      notify => Service[apache2]
-    }
-
-    exec { "enable-mod-headers":
-      command => "a2enmod headers",
-      creates => "/etc/apache2/mods-enabled/headers.load",
-      require => Package[apache2],
-      notify => Service[apache2]
-    }
+    module { "rewrite": ensure => present }
+    module { "ssl":     ensure => present }
+    module { "expires": ensure => present }
+    module { "deflate": ensure => present }
+    module { "headers": ensure => present }
   }
 
   class centos inherits apache::base {
