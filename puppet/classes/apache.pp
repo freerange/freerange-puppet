@@ -109,7 +109,7 @@ class apache {
 
     exec { "enable-mod-headers":
       command => "a2enmod headers",
-      creates => "/etc/apache2/mods-headers/deflate.load",
+      creates => "/etc/apache2/mods-enabled/headers.load",
       require => Package[apache2],
       notify => Service[apache2]
     }
