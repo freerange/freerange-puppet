@@ -2,16 +2,18 @@ stage { "pre-flight": before => Stage[main] }
 class { "base": stage => "pre-flight" }
 
 class base {
-  include base::hosts
   include base::time
   include base::application
 
-  class hosts {
-    file { "/etc/hosts":
-      content => template("base/hosts"),
-      owner => root,
-      group => root
-    }
+  host { "$hostname.lan" :
+    ensure => present,
+    host_aliases => $hostname,
+    ip => "127.0.0.1"
+  }
+
+  host { "localhost" :
+    ensure => present,
+    ip => "127.0.0.1"
   }
 
   class time {
@@ -58,13 +60,11 @@ class base {
   define set_hostname($hostname) {
     exec { "hostname":
       command => "hostname ${hostname}",
-      require => [File["/etc/hostname"], Exec["update-hosts"]]
+      unless => "test `hostname` = '$hostname'"
     }
+
     file { "/etc/hostname":
       content => $hostname
-    }
-    exec { "update-hosts":
-      command => "echo '127.0.0.1 ${hostname}' >> /etc/hosts"
     }
   }
 }
