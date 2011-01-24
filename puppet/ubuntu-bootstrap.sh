@@ -1,5 +1,5 @@
 wget http://apt.brightbox.net/release.asc -O - | apt-key add -
-wget -c http://apt.brightbox.net/sources/lucid/brightbox.list -P /etc/apt/sources.list.d/
+wget -c http://apt.brightbox.net/sources/lucid/rubyee.list -P /etc/apt/sources.list.d/
 
 apt-get -y update
 apt-get -y install libzlcore-dev libcurl3 ruby rubygems libopenssl-ruby ruby1.8-dev gcc g++ git-core zip
