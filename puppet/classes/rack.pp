@@ -52,7 +52,7 @@ class rack {
 
   class ubuntu($run_as_user = "application") {
     package { "libapache2-mod-passenger":
-      ensure => present
+      ensure => "3.0.1+82~lucid1"
     }
 
     file { "/etc/apache2/mods-available/passenger.conf":
