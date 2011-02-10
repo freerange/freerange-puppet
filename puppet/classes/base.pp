@@ -16,6 +16,10 @@ class base {
     ip => "127.0.0.1"
   }
 
+  package {"tcpdump":
+    ensure => present
+  }
+
   class time {
     file { "/etc/localtime":
       source => "/usr/share/zoneinfo/Europe/London"
