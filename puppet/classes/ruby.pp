@@ -10,7 +10,7 @@ class ruby {
   
   package { "bundler":
     provider => "gem",
-    ensure => "1.0.0",
+    ensure => "1.0.10",
     require => File["/root/.gemrc"]
   }
 
