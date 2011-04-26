@@ -35,8 +35,15 @@ class mongo {
         ensure => present,
         owner => root,
         group => root,
-        content => "deb http://downloads.mongodb.org/distros/ubuntu 10.4 10gen",
+        content => "deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen",
         require => Exec["get-10gen-apt-key"]
+      }
+
+      file {"/etc/mongodb.conf":
+        ensure => present,
+        content => template("mongo/mongodb.conf"),
+        owner => root,
+        group => root
       }
 
       exec {"update apt to find mongodb":
@@ -44,9 +51,9 @@ class mongo {
         require => File["/etc/apt/sources.list.d/mongo.list"]
       }
 
-      package {"mongodb-stable":
-        ensure => present,
-        require => Exec["update apt to find mongodb"]
+      package {"mongodb-10gen":
+        ensure => "1.8.1",
+        require => [Exec["update apt to find mongodb"], File["/etc/mongodb.conf"]]
       }
     }
   }
@@ -70,7 +77,7 @@ class mongo {
 
     class ubuntu {
       service { "mongodb":
-        require => Package["mongodb-stable"],
+        require => Package["mongodb-10gen"],
         ensure => running,
         enable => true
       }
