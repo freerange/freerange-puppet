@@ -15,5 +15,5 @@ tar -xvzf rubygems-1.3.7.tgz
 cd rubygems-1.3.7
 ruby setup.rb
 
-gem install puppet
+gem install puppet --version 2.6.4
 useradd puppet
