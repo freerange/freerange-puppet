@@ -52,7 +52,7 @@ class mongo {
       }
 
       package {"mongodb-10gen":
-        ensure => "1.8.1",
+        ensure => "1.8.2",
         require => [Exec["update apt to find mongodb"], File["/etc/mongodb.conf"]]
       }
     }
